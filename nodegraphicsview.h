@@ -6,9 +6,11 @@
 #include <QGraphicsScene>
 #include <QtGui>
 #include <QtCore>
+#include <QVector>
 #include <QDebug>
 
 #include "nodegraphicsitem.h"
+#include "edge.h"
 #include "config.h"
 
 class NodeGraphicsView : public QGraphicsView
@@ -26,6 +28,7 @@ public:
     void getconfig();
 
     void add_node(Node *node,int x=0, int y=0);
+    void add_edge(Port *source=nullptr, Port *des=nullptr);
 
 private:
     QGraphicsScene* _scene;
@@ -35,6 +38,9 @@ private:
     double _zoom_factor;
     double _view_scale;
     bool _is_drag = false;
+
+    QVector<Node*> _ports;
+    QVector<Edge*> _edges;
 protected:
     void wheelEvent(QWheelEvent *event);
     void mousePressEvent(QMouseEvent *event);

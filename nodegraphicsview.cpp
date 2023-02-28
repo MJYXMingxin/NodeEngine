@@ -29,6 +29,14 @@ void NodeGraphicsView::add_node(Node *node, int x, int y)
 {
     this->_scene->addItem(node);
     node->setPos(x-node->width()/2,y-node->height()/2);
+    node->set_scene(this->_scene);
+    this->_ports.push_back(node);
+}
+
+void NodeGraphicsView::add_edge(Port *source, Port *des)
+{
+    auto *edge = new Edge(nullptr,source,des,this->_scene);
+    this->_edges.push_back(edge);
 }
 
 void NodeGraphicsView::wheelEvent(QWheelEvent *event)
