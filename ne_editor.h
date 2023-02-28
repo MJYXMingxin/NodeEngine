@@ -32,7 +32,8 @@ public:
     void set_eidtor_center(int width, int height);
     void create_actions();
 
-    void debug_node();
+    void debug_node(QPointF pos = QPointF(0,0));
+    void middle_click_add_node(QPointF pos = QPointF(0,0));
 
 private:
     Ui::NE_Editor *ui;
@@ -47,6 +48,7 @@ private:
 
 protected:
     void keyPressEvent(QKeyEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 //    void mouseMoveEvent(QMouseEvent *event);
 
 private slots:

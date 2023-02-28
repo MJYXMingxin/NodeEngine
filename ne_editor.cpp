@@ -8,8 +8,6 @@ NE_Editor::NE_Editor(QWidget *parent)
 {
     ui->setupUi(this);
     this->setup_editor();
-
-    this->debug_node();
 }
 
 NE_Editor::~NE_Editor()
@@ -61,7 +59,7 @@ void NE_Editor::setup_editor()
 
 }
 
-void NE_Editor::debug_node()
+void NE_Editor::debug_node(QPointF pos)
 {
     auto *param1 = new ParamInPort("Param1","float",QColor(153,255,34),PARAM_IN);
     auto *param2 = new ParamInPort("Param2","float",QColor(153,255,34),PARAM_IN);
@@ -79,7 +77,12 @@ void NE_Editor::debug_node()
 
     Node *node = new Node(nullptr,nullptr,"Test",in,out);
     node->set_scene(this->_scene);
-    this->_view->add_node(node,0,0);
+    this->_view->add_node(node,pos.x(),pos.y());
+}
+
+void NE_Editor::middle_click_add_node(QPointF pos)
+{
+    this->debug_node(pos);
 }
 
 void NE_Editor::keyPressEvent(QKeyEvent *event)
@@ -106,6 +109,19 @@ void NE_Editor::keyPressEvent(QKeyEvent *event)
         }
 
     default:
+        break;
+    }
+}
+
+void NE_Editor::mousePressEvent(QMouseEvent *event)
+{
+    switch(event->button())
+    {
+    case Qt::MiddleButton:
+        this->middle_click_add_node(this->_view->mapToScene(event->pos()));
+        break;
+    default:
+        QWidget::mousePressEvent(event);
         break;
     }
 }
