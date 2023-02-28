@@ -12,6 +12,7 @@
 #include "ne_title.h"
 #include "nodegraphicsscene.h"
 #include "nodegraphicsview.h"
+#include "port.h"
 
 #define PADDING 10
 

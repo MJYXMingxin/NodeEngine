@@ -18,6 +18,8 @@ set(PROJECT_SOURCES
         ne_editor.h
         ne_title.cpp
         ne_title.h
+        port.cpp
+        port.h
         nodegraphicsview.cpp
         nodegraphicsview.h
         nodegraphicsscene.cpp

@@ -63,7 +63,22 @@ void NE_Editor::setup_editor()
 
 void NE_Editor::debug_node()
 {
-    Node *node = new Node;
+    auto *param1 = new ParamInPort("Param1","float",QColor(153,255,34),PARAM_IN);
+    auto *param2 = new ParamInPort("Param2","float",QColor(153,255,34),PARAM_IN);
+    auto *param3 = new ParamInPort("Param3","float",QColor(153,255,34),PARAM_IN);
+    auto *param4 = new ParamInPort("Param4","float",QColor(153,255,34),PARAM_IN);
+    auto *output = new ParamOutPort("Output","float",QColor(153,255,34),PARAM_OUT);
+
+    QVector<Port*> in;
+    QVector<Port*> out;
+    in.push_back(param1);
+    in.push_back(param2);
+    in.push_back(param3);
+    in.push_back(param4);
+    out.push_back(output);
+
+    Node *node = new Node(nullptr,nullptr,"Test",in,out);
+    node->set_scene(this->_scene);
     this->_view->add_node(node,0,0);
 }
 
