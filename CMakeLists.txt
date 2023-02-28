@@ -20,6 +20,8 @@ set(PROJECT_SOURCES
         ne_title.h
         port.cpp
         port.h
+        edge.cpp
+        edge.h
         nodegraphicsview.cpp
         nodegraphicsview.h
         nodegraphicsscene.cpp

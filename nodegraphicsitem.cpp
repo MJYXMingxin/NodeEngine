@@ -9,7 +9,7 @@ Node::Node(QGraphicsItem *parent,QGraphicsScene *scene,QString title,QVector<Por
     this->_brush_background = QBrush(QColor(21,21,21,170));
 
     this->setFlags(QGraphicsItem::ItemIsSelectable |
-                   QGraphicsItem::ItemIsMovable);
+                   QGraphicsItem::ItemIsMovable );
 
     this->_title = title;
     this->init_title();
@@ -60,13 +60,15 @@ void Node::init_width_height(bool is_pure)
 {
     int param_height = (this->_param_in.size())*(this->_param_in[0]->icoSize()+this->_port_padding)+this->_title_height;
     is_pure?param_height+=0:param_height+=20+this->_port_padding;
-    param_height>this->_node_height?param_height+=0:param_height=this->_node_height_min;
+    param_height>this->_node_height?
+                param_height+=0:param_height=this->_node_height_min;
     if(this->_node_height < param_height)
         this->_node_height = param_height;
 
     int out_height = (this->_param_out.size())*(this->_param_out[0]->icoSize()+this->_port_padding)+this->_title_height+this->_node_height_min;
     is_pure?out_height+=0:out_height+=20+this->_port_padding;
-    out_height>this->_node_height?out_height+=0:out_height=this->_node_height_min;
+    out_height>this->_node_height?
+                out_height+=0:out_height=this->_node_height_min;
     if(this->_node_height < out_height)
         this->_node_height = out_height;
 
@@ -151,6 +153,14 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     painter->setBrush(Qt::NoBrush);
     painter->drawPath(node_outline);
 }
+
+//QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
+//{
+//    if(change == QGraphicsItem::ItemPositionChange)
+//    {
+
+//    }
+//}
 
 void Node::add_port(Port *port,int index)
 {

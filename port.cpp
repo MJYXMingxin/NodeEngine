@@ -44,6 +44,13 @@ int Port::width()
     return this->_port_width;
 }
 
+QPointF Port::get_port_pos()
+{
+    this->_port_pos = this->scenePos();
+    return QPointF(this->_port_pos.x()+0.25*this->_port_ico_size,
+                   this->_port_pos.y()+0.5*this->_port_ico_size);
+}
+
 EXECport::EXECport(QString port_label, QString port_class, QColor port_color, Port_Type type, QGraphicsItem *parent)
 {
     this->_port_label = port_label;
@@ -185,6 +192,11 @@ void ParamOutPort::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     painter->setBrush(this->_brush_default);
     painter->setPen(Qt::NoPen);
     painter->drawPolygon(poly);
+}
 
-
+QPointF ParamOutPort::get_port_pos()
+{
+    auto pos = this->scenePos();
+    return QPointF(pos.x()+ this->_port_label_size+0.5*this->_port_ico_size,
+                   pos.y()+0.5*this->_port_ico_size);
 }

@@ -30,10 +30,13 @@ public:
     int width();
     int icoSize();
     void add_to_parent_node(QGraphicsItem *parent,QGraphicsScene *scene);
+    virtual QPointF get_port_pos();
+
+    QColor _port_color;
 protected:
     QString _port_label;
     QString _port_class;
-    QColor _port_color;
+
     Port_Type _port_type;
 
     QPen _pen_default;
@@ -47,6 +50,7 @@ protected:
 
     QGraphicsItem *_parent_item;
     QGraphicsScene *_scene;
+    QPointF _port_pos;
 };
 
 class EXECport : public Port
@@ -101,6 +105,7 @@ public:
                  QColor port_color=QColor(255,255,255),
                  Port_Type type = PARAM_IN,
                  QGraphicsItem *parent = nullptr);
+    QPointF get_port_pos();
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 };

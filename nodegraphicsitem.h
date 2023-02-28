@@ -38,7 +38,7 @@ public:
     void init_width_height(bool is_pure=false);
 protected:
     int _node_width_min = 20;
-    int _node_height_min = 55;
+    int _node_height_min = 20;
     int _node_width = 50;
     int _node_height = 50;
     int _node_radius = 10;
@@ -69,6 +69,7 @@ protected:
     int _max_output_width = 0;
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+//    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 };
 
 #endif // NODE_H
