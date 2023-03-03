@@ -6,6 +6,10 @@
 #include <QPen>
 #include <QBrush>
 #include <QPainter>
+#include <QVector>
+
+#include "nodegraphicsitem.h"
+#include "edge.h"
 
 enum Port_Type
 {
@@ -23,20 +27,27 @@ public:
          QString port_class="str",
          QColor port_color=QColor(255,255,255),
          Port_Type type = EXEC_IN,
-         QGraphicsItem *parent = nullptr);
+         QGraphicsItem *parent = nullptr,
+         QVector<Port*> connected_ports = {},
+         QVector<Edge*> edges = {});
 
     QRectF boundingRect() const override;
     Port_Type type();
     int width();
     int icoSize();
-    void add_to_parent_node(QGraphicsItem *parent,QGraphicsScene *scene);
+    void add_to_parent_node(Node *parent,QGraphicsScene *scene);
     virtual QPointF get_port_pos();
 
+    void add_edge(Edge *edge, Port *port);
+    bool is_connected();
+    void conditioned_remove_edge();
+    void remove_edge(Edge *edge);
+
     QColor _port_color;
+    Node *_parent_item;
+    QString _port_class;
 protected:
     QString _port_label;
-    QString _port_class;
-
     Port_Type _port_type;
 
     QPen _pen_default;
@@ -48,9 +59,11 @@ protected:
     int _port_label_size;
     int _port_width;
 
-    QGraphicsItem *_parent_item;
     QGraphicsScene *_scene;
     QPointF _port_pos;
+
+    QVector<Port*> _connected_ports;
+    QVector<Edge*> _edges;
 };
 
 class EXECport : public Port
