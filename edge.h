@@ -6,6 +6,9 @@
 #include <QGraphicsScene>
 #include <QWidget>
 
+#include "nodegraphicsscene.h"
+
+class NodeGraphicsView;
 class Port;
 class Edge : public QObject, public QGraphicsPathItem
 {
@@ -14,7 +17,7 @@ public:
     Edge(QGraphicsItem *parent=nullptr,
          Port *source=nullptr,
          Port *des=nullptr,
-         QGraphicsScene *scene=nullptr,
+         NodeGraphicsScene *scene=nullptr,
          QColor color=QColor(255,255,255));
     void update_edge_path();
     void add_to_scene();
@@ -26,7 +29,7 @@ public:
 protected:
     QColor _edge_color;
     QPen _pen_default;
-    QGraphicsScene *_scene;
+    NodeGraphicsScene *_scene;
 
     QGraphicsDropShadowEffect *_shadow = new QGraphicsDropShadowEffect();
     QColor _shadow_color = Qt::yellow;
@@ -42,7 +45,7 @@ public:
              QPoint source_pos=QPoint(0,0),
              QPoint des_pos=QPoint(0,0),
              QColor edge_color=QColor(255,255,255),
-             QGraphicsScene *scene=nullptr);
+             NodeGraphicsScene *scene=nullptr);
     void update_edge_path();
     void update_position(QPointF position);
     void add_first_port(Port *port);
@@ -58,7 +61,7 @@ protected:
     QPoint _des_pos;
     bool _drag_from_source;
     QColor _edge_color;
-    QGraphicsScene *_scene;
+    NodeGraphicsScene *_scene;
 
     Port *_source_port;
     Port *_des_port;

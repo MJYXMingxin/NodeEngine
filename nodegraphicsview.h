@@ -10,6 +10,7 @@
 #include <QDebug>
 
 #include "nodegraphicsitem.h"
+#include "nodegraphicsscene.h"
 #include "edge.h"
 #include "port.h"
 #include "config.h"
@@ -17,7 +18,7 @@
 class NodeGraphicsView : public QGraphicsView
 {
 public:
-    NodeGraphicsView(QWidget* parent = nullptr, QGraphicsScene* scene = nullptr);
+    NodeGraphicsView(QWidget* parent = nullptr, NodeGraphicsScene* scene = nullptr);
 
     template <typename T>
     T clamp(T value,T min, T max);
@@ -33,11 +34,11 @@ public:
 
     void add_node(Node *node,int x=0, int y=0);
     void add_edge(Port *source=nullptr, Port *des=nullptr);
-
+    void remove_edge(Edge* edge);
     void create_dragging_edge(Port *port);
 
 private:
-    QGraphicsScene* _scene;
+    NodeGraphicsScene* _scene;
     QJsonObject _obj;
     Config_View _config;
     double _zoom_clamp[2];

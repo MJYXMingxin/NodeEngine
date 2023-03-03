@@ -1,4 +1,6 @@
 #include "nodegraphicsscene.h"
+#include "nodegraphicsview.h"
+#include "edge.h"
 
 NodeGraphicsScene::NodeGraphicsScene(QObject *parent)
     : QGraphicsScene{parent}
@@ -62,6 +64,10 @@ void NodeGraphicsScene::drawBackground(QPainter *painter, const QRectF &rect)
 
 }
 
+void NodeGraphicsScene::set_view(NodeGraphicsView *view)
+{
+    this->_view = view;
+}
 
 void NodeGraphicsScene::getconfig()
 {

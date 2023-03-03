@@ -14,17 +14,24 @@
 
 #include "config.h"
 
+class NodeGraphicsView;
+class Edge;
+
 class NodeGraphicsScene : public QGraphicsScene
 {
 public:
-    explicit NodeGraphicsScene(QObject *parent = nullptr);
+    NodeGraphicsScene(QObject *parent = nullptr);
     void getconfig();
+    void set_view(NodeGraphicsView *view);
+public:
+    NodeGraphicsView *_view;
 private:
     QJsonObject _obj;
     Config_Scene _config;
     QPen _normal_line_pen;
     QPen _dark_line_pen;
     QVector<QLine> Lines,Dark_Lines;
+
 protected:
     void drawBackground(QPainter *painter, const QRectF &rect);
 };

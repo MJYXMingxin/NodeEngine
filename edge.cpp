@@ -1,7 +1,8 @@
 #include "edge.h"
 #include "port.h"
+#include "nodegraphicsview.h"
 
-Edge::Edge(QGraphicsItem *parent, Port *source, Port *des, QGraphicsScene *scene, QColor color)
+Edge::Edge(QGraphicsItem *parent, Port *source, Port *des, NodeGraphicsScene *scene, QColor color)
 {
     this->_source_port = source;
     this->_des_port = des;
@@ -79,11 +80,12 @@ void Edge::add_to_scene()
 void Edge::remove_self()
 {
     this->_scene->removeItem(this);
+    this->_scene->_view;
     this->_source_port->remove_edge(this);
     this->_des_port->remove_edge(this);
 }
 
-DragEdge::DragEdge(QGraphicsItem *parent,bool drag_from_source, QPoint source_pos, QPoint des_pos, QColor edge_color, QGraphicsScene *scene)
+DragEdge::DragEdge(QGraphicsItem *parent,bool drag_from_source, QPoint source_pos, QPoint des_pos, QColor edge_color, NodeGraphicsScene *scene)
 {
     this->_source_pos = source_pos;
     this->_des_pos = des_pos;

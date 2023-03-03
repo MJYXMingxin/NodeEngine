@@ -1,12 +1,13 @@
 #include "nodegraphicsview.h"
 
-NodeGraphicsView::NodeGraphicsView(QWidget* parent, QGraphicsScene* scene)
+NodeGraphicsView::NodeGraphicsView(QWidget* parent, NodeGraphicsScene* scene)
     :QGraphicsView{parent}
 {
     this->getconfig();
 
     this->_scene = scene;
     this->setScene(this->_scene);
+    this->_scene->set_view(this);
 
     this->setRenderHints(QPainter::Antialiasing|
                          QPainter::TextAntialiasing|
@@ -206,6 +207,18 @@ void NodeGraphicsView::create_dragging_edge(Port *port)
         this->_scene->addItem(this->_drag_edge);
     }
 
+}
+
+void NodeGraphicsView::remove_edge(Edge* edge)
+{
+    for(auto i=0; i<this->_edges.size(); ++i)
+    {
+        if(edge == this->_edges[i])
+        {
+            this->_edges.remove(i);
+            break;
+        }
+    }
 }
 
 template <typename T>
