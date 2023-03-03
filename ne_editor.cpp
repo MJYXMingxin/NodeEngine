@@ -9,7 +9,7 @@ NE_Editor::NE_Editor(QWidget *parent)
     ui->setupUi(this);
     this->setup_editor();
 
-    this->debug_node();
+//    this->debug_node();
 }
 
 NE_Editor::~NE_Editor()
@@ -65,33 +65,38 @@ void NE_Editor::debug_node(QPointF pos)
 {
     auto *param1 = new ParamInPort("Param1","float",QColor(153,255,34),PARAM_IN);
     auto *param2 = new ParamInPort("Param2","float",QColor(153,255,34),PARAM_IN);
-    auto *output = new ParamOutPort("Output","float",QColor(153,255,34),PARAM_OUT);
+    auto *param3 = new ParamInPort("Param3","int",QColor(34,139,34),PARAM_IN);
+    auto *output1 = new ParamOutPort("Output1","float",QColor(153,255,34),PARAM_OUT);
+    auto *output2 = new ParamOutPort("Output2","int",QColor(34,139,34),PARAM_OUT);
 
     QVector<Port*> in;
     QVector<Port*> out;
     in.push_back(param1);
     in.push_back(param2);
-    out.push_back(output);
+    in.push_back(param3);
+    out.push_back(output1);
+    out.push_back(output2);
 
     Node *node = new Node(nullptr,nullptr,"Test",in,out);
     node->set_scene(this->_scene);
-    this->_view->add_node(node,0,0);
+    this->_view->add_node(node,pos.x(),pos.y());
+//    this->_view->add_node(node,0,0);
 
-    auto *param3 = new ParamInPort("Param1","float",QColor(153,255,34),PARAM_IN);
-    auto *param4 = new ParamInPort("Param2","float",QColor(153,255,34),PARAM_IN);
-    auto *output1 = new ParamOutPort("Output","float",QColor(153,255,34),PARAM_OUT);
+//    auto *param3 = new ParamInPort("Param1","float",QColor(153,255,34),PARAM_IN);
+//    auto *param4 = new ParamInPort("Param2","float",QColor(153,255,34),PARAM_IN);
+//    auto *output1 = new ParamOutPort("Output","float",QColor(153,255,34),PARAM_OUT);
 
-    QVector<Port*> in1;
-    QVector<Port*> out1;
-    in1.push_back(param3);
-    in1.push_back(param4);
-    out1.push_back(output1);
+//    QVector<Port*> in1;
+//    QVector<Port*> out1;
+//    in1.push_back(param3);
+//    in1.push_back(param4);
+//    out1.push_back(output1);
 
-    Node *node1 = new Node(nullptr,nullptr,"Test",in1,out1);
-    node1->set_scene(this->_scene);
-    this->_view->add_node(node1,200,200);
+//    Node *node1 = new Node(nullptr,nullptr,"Test",in1,out1);
+//    node1->set_scene(this->_scene);
+//    this->_view->add_node(node1,200,200);
 
-    this->_view->add_edge(out[0],in1[0]);
+//    this->_view->add_edge(out[0],in1[0]);
 }
 
 void NE_Editor::middle_click_add_node(QPointF pos)
@@ -132,7 +137,7 @@ void NE_Editor::mousePressEvent(QMouseEvent *event)
     switch(event->button())
     {
     case Qt::MiddleButton:
-//        this->middle_click_add_node(this->_view->mapToScene(event->pos()));
+        this->middle_click_add_node(this->_view->mapToScene(event->pos()));
         break;
     default:
         QWidget::mousePressEvent(event);
