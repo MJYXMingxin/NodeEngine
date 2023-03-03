@@ -6,7 +6,9 @@
 #include <QWidget>
 #include <QVector>
 
-#include "port.h"
+#include "edge.h"
+
+class Port;
 
 class Node : public QObject,public QGraphicsItem
 {
@@ -17,7 +19,10 @@ public:
          QString title="",
          QVector<Port*> in={},
          QVector<Port*> out={},
-         bool is_pure=false);
+         bool is_pure=false,
+         QPointF node_pos=QPointF(0,0),
+         QVector<Edge*> edes={},
+         QVector<Node*> connected_nodes={});
     QRectF boundingRect() const override;
     int width();
     int height();
@@ -36,6 +41,13 @@ public:
     void init_param_out();
 
     void init_width_height(bool is_pure=false);
+
+    void add_connected(Node* node, Edge* edge);
+    void remove_connected(Node* node, Edge* edge);
+
+public:
+    QVector<Edge*> _edges;
+    QVector<Node*> _connected_nodes;
 protected:
     int _node_width_min = 20;
     int _node_height_min = 20;
@@ -67,9 +79,12 @@ protected:
     int _port_index = 0;
     int _max_param_width = 0;
     int _max_output_width = 0;
+
+    QPointF _node_pos;
+
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-//    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 };
 
 #endif // NODE_H

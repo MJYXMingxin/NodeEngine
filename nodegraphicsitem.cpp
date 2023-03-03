@@ -1,6 +1,7 @@
 #include "nodegraphicsitem.h"
+#include "port.h"
 
-Node::Node(QGraphicsItem *parent,QGraphicsScene *scene,QString title,QVector<Port*> in,QVector<Port*> out,bool is_pure)
+Node::Node(QGraphicsItem *parent,QGraphicsScene *scene,QString title,QVector<Port*> in,QVector<Port*> out,bool is_pure,QPointF node_pos,QVector<Edge*> edges, QVector<Node*> connected_nodes)
     :QGraphicsItem(parent)
 {
     this->_scene = scene;
@@ -8,8 +9,13 @@ Node::Node(QGraphicsItem *parent,QGraphicsScene *scene,QString title,QVector<Por
     this->_pen_selected = QPen(QColor(255,238,0,170));
     this->_brush_background = QBrush(QColor(21,21,21,170));
 
+    this->_node_pos = node_pos;
+    this->_edges = edges;
+    this->_connected_nodes = connected_nodes;
+
     this->setFlags(QGraphicsItem::ItemIsSelectable |
-                   QGraphicsItem::ItemIsMovable );
+                   QGraphicsItem::ItemIsMovable |
+                   QGraphicsItem::ItemSendsGeometryChanges);
 
     this->_title = title;
     this->init_title();
@@ -118,6 +124,12 @@ void Node::init_title()
         this->_node_width = title_width;
 }
 
+void Node::add_connected(Node *node, Edge *edge)
+{
+    this->_connected_nodes.append(node);
+    this->_edges.append(edge);
+}
+
 void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     //node
@@ -154,13 +166,18 @@ void Node::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     painter->drawPath(node_outline);
 }
 
-//QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
-//{
-//    if(change == QGraphicsItem::ItemPositionChange)
-//    {
-
-//    }
-//}
+QVariant Node::itemChange(GraphicsItemChange change, const QVariant &value)
+{
+    if(change == QGraphicsItem::ItemPositionChange)
+    {
+        if(this->_edges.size()>0)
+        {
+            for(auto i=0;i<this->_edges.size();++i)
+                this->_edges[i]->update();
+        }
+    }
+    return QGraphicsItem::itemChange(change,value);
+}
 
 void Node::add_port(Port *port,int index)
 {
@@ -209,4 +226,24 @@ void Node::add_param_out_port(Port *port, int index)
     port->add_to_parent_node(this,this->_scene);
     port->setPos(this->_node_width-this->_port_padding-port->width(),
                  this->_title_height+index*(this->_port_padding+port->icoSize()));
+}
+
+void Node::remove_connected(Node *node, Edge *edge)
+{
+    for(auto i=0; i<this->_connected_nodes.size(); ++i)
+    {
+        if(this->_connected_nodes[i]==node)
+        {
+            this->_connected_nodes.remove(i);
+            break;
+        }
+    }
+    for(auto i=0; i<this->_edges.size(); ++i)
+    {
+        if(this->_edges[i]==edge)
+        {
+            this->_edges.remove(i);
+            break;
+        }
+    }
 }

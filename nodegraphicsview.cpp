@@ -68,6 +68,9 @@ void NodeGraphicsView::mousePressEvent(QMouseEvent *event)
     case Qt::RightButton:
         this->RightButtonPressed(event);
         break;
+    case Qt::LeftButton:
+        this->LeftButtonPressed(event);
+        break;
     default:
         break;
     }
@@ -80,6 +83,9 @@ void NodeGraphicsView::mouseReleaseEvent(QMouseEvent *event)
     {
     case Qt::RightButton:
         this->RightButtonRelease(event);
+        break;
+    case Qt::LeftButton:
+        this->LeftButtonRelease(event);
         break;
     default:
         break;
@@ -128,10 +134,56 @@ void NodeGraphicsView::RightButtonPressed(QMouseEvent *event)
     }
 }
 
+void NodeGraphicsView::mouseMoveEvent(QMouseEvent *event)
+{
+    if(this->_drag_edge_mode)
+    {
+        this->_drag_edge->update_position(this->mapToScene(event->pos()));
+    }
+    else
+        return QGraphicsView::mouseMoveEvent(event);
+}
+
 void NodeGraphicsView::RightButtonRelease(QMouseEvent *event)
 {
     this->setDragMode(QGraphicsView::NoDrag);
     this->_is_drag = false;
+}
+
+void NodeGraphicsView::LeftButtonPressed(QMouseEvent *event)
+{;
+    auto *item = this->itemAt(event->pos());
+    auto *it = dynamic_cast<Port*>(item);
+//    if(typeid(*item) == typeid(Port))
+    if(it != nullptr)
+    {
+        auto *it = dynamic_cast<Port*>(item);
+        this->_drag_edge_mode = true;
+        this->create_dragging_edge(it);
+    }
+    else
+        QGraphicsView::mousePressEvent(event);
+}
+
+void NodeGraphicsView::LeftButtonRelease(QMouseEvent *event)
+{
+    if(this->_drag_edge_mode)
+    {
+        this->_drag_edge_mode = false;
+        auto *item = this->itemAt(event->pos());
+        auto *it = dynamic_cast<Port*>(item);
+        if(it != nullptr)
+        {
+            this->_drag_edge->add_second_port(it);
+            auto *edge = this->_drag_edge->create_node_edge();
+            if(edge != nullptr)
+                this->_edges.append(edge);
+        }
+        this->_scene->removeItem(this->_drag_edge);
+        this->_drag_edge = nullptr;
+    }
+    else
+        QGraphicsView::mousePressEvent(event);
 }
 
 void NodeGraphicsView::reset_scale()
@@ -140,6 +192,21 @@ void NodeGraphicsView::reset_scale()
     this->_view_scale = 1.0;
 }
 
+void NodeGraphicsView::create_dragging_edge(Port *port)
+{
+    auto port_pos = QPoint(port->get_port_pos().x(),port->get_port_pos().y());
+    if(port->type()==EXEC_OUT || port->type()==PARAM_OUT)
+        auto drag_from_source = true;
+    else
+        auto drag_from_source = false;
+    if(this->_drag_edge == nullptr)
+    {
+        this->_drag_edge = new DragEdge(nullptr,true,port_pos,port_pos,port->_port_color,this->_scene);
+        this->_drag_edge->add_first_port(port);
+        this->_scene->addItem(this->_drag_edge);
+    }
+
+}
 
 template <typename T>
 T NodeGraphicsView::clamp(T value, T min, T max)

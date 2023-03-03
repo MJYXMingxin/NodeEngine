@@ -11,6 +11,7 @@
 
 #include "nodegraphicsitem.h"
 #include "edge.h"
+#include "port.h"
 #include "config.h"
 
 class NodeGraphicsView : public QGraphicsView
@@ -24,11 +25,16 @@ public:
     void RightButtonPressed(QMouseEvent *event);
     void RightButtonRelease(QMouseEvent *event);
 
+    void LeftButtonPressed(QMouseEvent *event);
+    void LeftButtonRelease(QMouseEvent *event);
+
     void reset_scale();
     void getconfig();
 
     void add_node(Node *node,int x=0, int y=0);
     void add_edge(Port *source=nullptr, Port *des=nullptr);
+
+    void create_dragging_edge(Port *port);
 
 private:
     QGraphicsScene* _scene;
@@ -41,11 +47,15 @@ private:
 
     QVector<Node*> _ports;
     QVector<Edge*> _edges;
+
+    DragEdge* _drag_edge = nullptr;
+    bool _drag_edge_mode = false;
 protected:
     void wheelEvent(QWheelEvent *event);
     void mousePressEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseDoubleClickEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
 };
 
 #endif // NODEGRAPHICSVIEW_H
