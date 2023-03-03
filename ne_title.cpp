@@ -14,9 +14,7 @@ void NE_Title::init_title()
 {
     this->_ico = new QLabel;
     this->_title = new QLabel;
-
     this->_menu = new QMenuBar;
-
     this->_min = new QPushButton;
     this->_max = new QPushButton;
     this->_restore = new QPushButton;

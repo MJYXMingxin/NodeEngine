@@ -62,7 +62,6 @@ private:
     int _bcolor_R = 21;
     int _bcolor_G = 21;
     int _bcolor_B = 21;
-
     int _borderwidth = 0;
 
     QString _title_content;
