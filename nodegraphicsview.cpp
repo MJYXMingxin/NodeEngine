@@ -24,6 +24,7 @@ NodeGraphicsView::NodeGraphicsView(QWidget* parent, NodeGraphicsScene* scene)
     this->_view_scale = 1.0;
 
     this->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+
 }
 
 void NodeGraphicsView::add_node(Node *node, int x, int y)
@@ -156,6 +157,8 @@ void NodeGraphicsView::LeftButtonPressed(QMouseEvent *event)
     auto *item = this->itemAt(event->pos());
     auto *it = dynamic_cast<Port*>(item);
 //    if(typeid(*item) == typeid(Port))
+    if(item==NULL)
+        this->setDragMode(QGraphicsView::RubberBandDrag);
     if(it != nullptr)
     {
         auto *it = dynamic_cast<Port*>(item);
@@ -184,7 +187,10 @@ void NodeGraphicsView::LeftButtonRelease(QMouseEvent *event)
         this->_drag_edge = nullptr;
     }
     else
-        QGraphicsView::mousePressEvent(event);
+    {
+        this->setDragMode(QGraphicsView::NoDrag);
+        QGraphicsView::mouseReleaseEvent(event);
+    }
 }
 
 void NodeGraphicsView::reset_scale()
