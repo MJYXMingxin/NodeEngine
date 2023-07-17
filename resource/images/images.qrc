@@ -1,0 +1,5 @@
+<!DOCTYPE RCC>
+<RCC>
+    <qresource prefix="/resource/images">
+    </qresource>
+</RCC>

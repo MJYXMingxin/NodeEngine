@@ -1,0 +1,50 @@
+QMenuBar {
+  background-color: transparent;
+  spacing: 5px;
+  font-size: 12px;
+  color: white;
+  max-width: 322%;
+}
+QMenuBar::item {
+  padding: 1px 4px;
+  background-color: transparent;
+  border-radius: 4px;
+  margin-top: 6px;
+}
+QMenuBar::item:selected {
+  background: #a8a8a8;
+}
+QMenuBar::item:pressed {
+  background: #888888;
+}
+QMenu {
+  background-color: #151515;
+  font-size: 12px;
+  color: white;
+}
+QMenu::separator {
+  height: 1px;
+  background: white;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+QMenu::item {
+  background-color: transparent;
+}
+QMenu::item:selected {
+  background: #888888;
+}
+QPushButton {
+  background-color: transparent;
+  color: white;
+  border-radius: 4px;
+}
+QPushButton::hover {
+  background: #3f3f3f;
+  color: white;
+}
+QPushButton::pressed {
+  background: #888888;
+}

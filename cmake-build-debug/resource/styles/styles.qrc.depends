@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC>
+    <qresource prefix="/resource/styles">
+        <file>NE_View.qss</file>
+        <file>TitleBar.qss</file>
+    </qresource>
+</RCC>
