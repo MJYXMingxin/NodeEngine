@@ -1,0 +1,105 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "NodeEngine",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Logic::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Logic-Debug-30118d8b9c2d1330c00a.json",
+					"name" : "Logic",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Logic_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Logic_autogen-Debug-3691abe0f78e18689696.json",
+					"name" : "Logic_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Logic_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Logic_autogen_timestamp_deps-Debug-7008c738bc3faeef04b1.json",
+					"name" : "Logic_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NodeEngine::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NodeEngine-Debug-d95f1c3354668c232513.json",
+					"name" : "NodeEngine",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NodeEngine_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NodeEngine_autogen-Debug-b097e1785cc3cfe1dfcb.json",
+					"name" : "NodeEngine_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "NodeEngine_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-NodeEngine_autogen_timestamp_deps-Debug-25a070ff2f348fa2fa54.json",
+					"name" : "NodeEngine_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/VSCode_codes/Qt/NodeEngine/cmake-build-debug",
+		"source" : "D:/VSCode_codes/Qt/NodeEngine"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

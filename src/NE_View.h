@@ -14,10 +14,10 @@ class NE_View : public QGraphicsView
 {
 Q_OBJECT
 public:
-    NE_View(QWidget *parent = nullptr, NE_Scene *scene = nullptr);
+    explicit NE_View(QWidget *parent = nullptr, NE_Scene *scene = nullptr);
     void getConfig();
     void setScale(double scale);
-    double getScale();
+    double getScale() const;
     void LeftButtonPressed(QMouseEvent *event);
     void LeftButtonReleased(QMouseEvent *event);
     void RightButtonPressed(QMouseEvent *event);
@@ -35,7 +35,7 @@ public:
 
     void reset_scale();
 
-    NE_Scene *Scene();
+    [[maybe_unused]]NE_Scene *Scene();
     template <typename T>
     T clamp(T value,T min, T max);
 protected:

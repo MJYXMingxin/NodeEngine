@@ -4,7 +4,7 @@
 NE_Node_Basic::NE_Node_Basic(QString title,
                              QVector<NE_Port_Basic*> in,
                              QVector<NE_Port_Basic*> out,
-                             bool is_pure,
+                             FunctionType functype,
                              QPointF node_pos,
                              QGraphicsItem *parent,
                              NE_Scene *scene)
@@ -13,28 +13,32 @@ NE_Node_Basic::NE_Node_Basic(QString title,
                              _scene(scene),
                              _param_in(std::move(in)),
                              _param_out(std::move(out)),
-                             _is_pure(is_pure),
-                             _node_pos(node_pos)
+                               _func_type(functype),
+                             _node_pos(node_pos),
+                             _title_height(35),
+                             _title_font_size(16),
+                             _title_padding(3),
+                             _title_item(nullptr)
 {
-    this->loadConfig();
-    this->setFlags(QGraphicsItem::ItemIsSelectable |
+    loadConfig();
+    setFlags(QGraphicsItem::ItemIsSelectable |
                    QGraphicsItem::ItemIsMovable |
                    QGraphicsItem::ItemIsFocusable |
                    QGraphicsItem::ItemSendsGeometryChanges);
-    this->init_width_height();
-    this->init_title();
+    init_width_height();
+    init_title();
 
-    if(!is_pure)
-        this->_node_height_min += 20;
-//        this->init_exec();
-    this->init_param();
+    if(functype!=Pure)
+        _node_height_min += 20;
+//        init_exec();
+    init_param();
 }
 
 QRectF NE_Node_Basic::boundingRect() const
 {
     return {0,0,
-            static_cast<qreal>(this->_node_width),
-            static_cast<qreal>(this->_node_height)};
+            static_cast<qreal>(_node_width),
+            static_cast<qreal>(_node_height)};
 }
 
 void NE_Node_Basic::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -42,47 +46,46 @@ void NE_Node_Basic::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     //node
     auto node_outline = QPainterPath();
     node_outline.addRoundedRect(0,0,
-                                this->_node_width,
-                                this->_node_height,
-                                this->_node_radius,
-                                this->_node_radius);
+                                _node_width,
+                                _node_height,
+                                _node_radius,
+                                _node_radius);
     painter->setPen(Qt::NoPen);
-    painter->setBrush(this->_brush_background);
+    painter->setBrush(_brush_background);
     painter->drawPath(node_outline.simplified());
 
     //title
     auto title_outline = QPainterPath();
     title_outline.setFillRule(Qt::WindingFill);
     title_outline.addRoundedRect(0,0,
-                                 this->_node_width,
-                                 this->_title_height,
-                                 this->_node_radius,
-                                 this->_node_radius);
-    title_outline.addRect(0,this->_title_height-this->_node_radius,
-                          this->_node_radius,this->_node_radius);
-    title_outline.addRect(this->_node_width-this->_node_radius,
-                          this->_title_height-this->_node_radius,
-                          this->_node_radius,this->_node_radius);
+                                 _node_width,
+                                 _title_height,
+                                 _node_radius,
+                                 _node_radius);
+    title_outline.addRect(0,_title_height-_node_radius,
+                          _node_radius,_node_radius);
+    title_outline.addRect(_node_width-_node_radius,
+                          _title_height-_node_radius,
+                          _node_radius,_node_radius);
     painter->setPen(Qt::NoPen);
-    this->_is_pure?
-    painter->setBrush(this->_brush_pure_title_back):
-    painter->setBrush(this->_brush_function_title_back);
+
+    painter->setBrush(_brush_title_back);
     painter->drawPath(title_outline.simplified());
 
     //outline
-    this->isSelected()?
-    painter->setPen(this->_pen_selected):painter->setPen(this->_pen_default);
+    isSelected()?
+    painter->setPen(_pen_selected):painter->setPen(_pen_default);
     painter->setBrush(Qt::NoBrush);
     painter->drawPath(node_outline);
 }
 
 void NE_Node_Basic::set_scene(NE_Scene *scene)
 {
-    this->_scene = scene;
-    foreach(NE_Port_Basic* in,this->_param_in){
+    _scene = scene;
+    foreach(NE_Port_Basic* in,_param_in){
         in->setScene(scene);
     }
-    foreach(NE_Port_Basic* out,this->_param_out){
+    foreach(NE_Port_Basic* out,_param_out){
         out->setScene(scene);
     }
 }
@@ -91,22 +94,22 @@ void NE_Node_Basic::init_exec()
 {
     auto *in = new EXECInPort();
     auto *out = new EXECOutPort();
-    this->add_port(in);
-    this->add_port(out);
-    //        this->_port_index += 1;
+    add_port(in);
+    add_port(out);
+    //        _port_index += 1;
 }
 
 void NE_Node_Basic::init_param()
 {
-    for(auto i = 0; i < this->_param_in.size(); ++i)
-        this->add_port(this->_param_in[i], i);
-    for(auto i = 0; i < this->_param_out.size(); ++i)
-        this->add_port(this->_param_out[i], i);
+    for(auto i = 0; i < _param_in.size(); ++i)
+        add_port(_param_in[i], i);
+    for(auto i = 0; i < _param_out.size(); ++i)
+        add_port(_param_out[i], i);
 }
 
 void NE_Node_Basic::init_ports()
 {
-    this->init_param();
+    init_param();
 }
 
 void NE_Node_Basic::add_port(NE_Port_Basic *port, int index)
@@ -114,168 +117,199 @@ void NE_Node_Basic::add_port(NE_Port_Basic *port, int index)
     switch(port->PortType())
     {
         case PORT_EXEC_IN:
-            this->add_exec_in_port(port, index);
+            add_exec_in_port(port, index);
             break;
         case PORT_EXEC_OUT:
-            this->add_exec_out_port(port, index);
+            add_exec_out_port(port, index);
             break;
         case PORT_PARAM_IN:
-            this->add_param_in_port(port, index);
+            add_param_in_port(port, index);
             break;
         case PORT_PARAM_OUT:
-            this->add_param_out_port(port, index);
+            add_param_out_port(port, index);
             break;
     }
 }
 
 void NE_Node_Basic::add_exec_in_port(NE_Port_Basic *port, int index)
 {
-    port->add_to_parent_node(this, this->_scene);
-    port->setPos(this->_port_padding,
-                 this->_title_height + index*(this->_port_padding+port->PortIcoSize()));
+    port->add_to_parent_node(this, _scene);
+    port->setPos(_port_padding,
+                 _title_height + index*(_port_padding+port->PortIcoSize()));
 }
 
 void NE_Node_Basic::add_exec_out_port(NE_Port_Basic *port, int index)
 {
-    port->add_to_parent_node(this,this->_scene);
-    port->setPos(this->_node_width/*-this->_port_padding*/-port->PortWidth(),
-                 this->_title_height + index*(this->_port_padding+port->PortIcoSize()));
+    port->add_to_parent_node(this,_scene);
+    port->setPos(_node_width/*-_port_padding*/-port->PortWidth(),
+                 _title_height + index*(_port_padding+port->PortIcoSize()));
 }
 
 void NE_Node_Basic::add_param_in_port(NE_Port_Basic *port, int index)
 {
-    port->add_to_parent_node(this,this->_scene);
-    port->setPos(this->_port_padding,
-                 this->_title_height+index*(this->_port_padding+port->PortIcoSize()));
+    port->add_to_parent_node(this,_scene);
+    port->setPos(_port_padding,
+                 _title_height+index*(_port_padding+port->PortIcoSize()));
 }
 
 void NE_Node_Basic::add_param_out_port(NE_Port_Basic *port, int index)
 {
-    port->add_to_parent_node(this,this->_scene);
-    port->setPos(this->_node_width-this->_port_padding-port->PortWidth(),
-                 this->_title_height+index*(this->_port_padding+port->PortIcoSize()));
+    port->add_to_parent_node(this,_scene);
+    port->setPos(_node_width-_port_padding-port->PortWidth(),
+                 _title_height+index*(_port_padding+port->PortIcoSize()));
 }
 
 void NE_Node_Basic::init_width_height()
 {
     auto cal_unicode = [this]{
         int len = 0;
-        for(auto i = 0; i < this->_title.length(); ++i)
+        for(auto i:_title)
         {
-            ushort code = this->_title.at(i).unicode();
-            if (code >= 0xFF01 && code <= 0xFF5E)//全角
-                len += this->_title_font_size;
-            else if(code >= 0x0020 && code <= 0x007E)//半角
-                len += static_cast<int>(this->_title_font_size*0.6);
-            else//其他字符
-                len += this->_title_font_size;
+//            if(i.unicode() >= 0xFF01 && i.unicode() <= 0xFF5E)
+//                len += _title_font_size;
+            if(i.unicode() >= 0x0020 && i.unicode() <= 0x007E)
+                len += static_cast<int>(_title_font_size*0.7);
+            else
+                len += _title_font_size;
         }
         return len;
     };
     //init _node_height
     int param_height,out_height;
-    if(!this->_param_in.empty())
-        param_height = (static_cast<int>(this->_param_in.size()))*
-                (this->_param_in[0]->PortIcoSize()+this->_port_padding)+
-                this->_title_height;
+    if(!_param_in.empty())
+        param_height = (static_cast<int>(_param_in.size()))*
+                (_param_in[0]->PortIcoSize()+_port_padding)+
+                _title_height;
     else
-        param_height = this->_title_height;
-    //        is_pure?param_height+=0:param_height+=20+this->_port_padding;
-    param_height>this->_node_height?
-            param_height+=0:param_height=this->_node_height_min;
-    if(this->_node_height < param_height)
-        this->_node_height = param_height;
+        param_height = _title_height;
 
-    if(!this->_param_out.empty())
-        out_height = (static_cast<int>(this->_param_out.size()))*
-                (this->_param_out[0]->PortIcoSize()+this->_port_padding)+
-                this->_title_height;
+    param_height>_node_height?
+            param_height+=0:param_height=_node_height_min;
+    if(_node_height < param_height)
+        _node_height = param_height;
+
+    if(!_param_out.empty())
+        out_height = (static_cast<int>(_param_out.size()))*
+                (_param_out[0]->PortIcoSize()+_port_padding)+
+                _title_height;
     else
-        out_height = this->_title_height;
-    //        is_pure?out_height:out_height+=20+this->_port_padding;
-    out_height>this->_node_height?
-    out_height:out_height=this->_node_height_min;
-    if(this->_node_height < out_height)
-        this->_node_height = out_height;
+        out_height = _title_height;
+
+    out_height>_node_height?
+    out_height:out_height=_node_height_min;
+    if(_node_height < out_height)
+        _node_height = out_height;
 
     //init _node_width
-    this->_max_param_width = 0;
-    if(!this->_param_in.empty()){
-        foreach (NE_Port_Basic *port, this->_param_in) {
-            if(this->_max_param_width < port->PortWidth())
-                this->_max_param_width = port->PortWidth();
+    _max_param_width = 0;
+    if(!_param_in.empty()){
+        foreach (NE_Port_Basic *port, _param_in) {
+            if(_max_param_width < port->PortWidth())
+                _max_param_width = port->PortWidth();
         }
     }
 
-    this->_max_output_width = 0;
-    if(!this->_param_out.empty()){
-        foreach (NE_Port_Basic *port, this->_param_out){
-            if(this->_max_output_width < port->PortWidth())
-                this->_max_output_width = port->PortWidth();
+    _max_output_width = 0;
+    if(!_param_out.empty()){
+        foreach (NE_Port_Basic *port, _param_out){
+            if(_max_output_width < port->PortWidth())
+                _max_output_width = port->PortWidth();
         }
     }
 
-    if(this->_node_width < this->_max_param_width + this->_max_output_width + this->_port_space)
-        this->_node_width = this->_max_param_width + this->_max_output_width + this->_port_space;
+    if(_node_width < _max_param_width + _max_output_width + _port_space)
+        _node_width = _max_param_width + _max_output_width + _port_space;
 
-    if(this->_node_width < cal_unicode() + 2 * 10 + 4*this->_port_padding)
-        this->_node_width = cal_unicode() + 2 * 10 + 4*this->_port_padding;
+    if(_node_width < cal_unicode() + 2 * 10 + 4*_port_padding)
+        _node_width = cal_unicode() + 2 * 10 + 4*_port_padding;
 
-    //        if(this->_node_width < this->_title.length() * this->_title_font_size + 2 * this->_port_padding)
-    //            this->_node_width = this->_title.length() * this->_title_font_size + 2 * this->_port_padding;
+    //        if(_node_width < _title.length() * _title_font_size + 2 * _port_padding)
+    //            _node_width = _title.length() * _title_font_size + 2 * _port_padding;
 }
 
 void NE_Node_Basic::loadConfig()
 {
-    this->_pen_default = QPen(QColor(49,49,49));
-    this->_pen_selected = QPen(QColor(255,238,0));
-    this->_brush_background = QBrush(QColor(21,21,21,170));
+    _obj = SearchObj(Node);
+    _config.Default_Pen_Color = _obj["Default_Pen_Color"].toString();
+    _config.Selected_Pen_Color = _obj["Selected_Pen_Color"].toString();
+    _config.Background_Color = _obj["Background_Color"].toString();
+    _config.Default_Pen_Width = _obj["Default_Pen_Width"].toDouble();
+    _config.Selected_Pen_Width = _obj["Selected_Pen_Width"].toDouble();
+    _config.Title_Height = _obj["Title_Height"].toInt();
+    _config.Title_Font_Size = _obj["Title_Font_Size"].toInt();
+    _config.Title_Padding = _obj["Title_Padding"].toInt();
+    _config.Title_Color = _obj["Title_Color"].toString();
+    _config.Pure_Title_Back = _obj["Pure_Title_Back"].toString();
+    _config.Func_Title_Back = _obj["Func_Title_Back"].toString();
+    _config.Inline_Title_Back = _obj["Inline_Title_Back"].toString();
 
-    this->_pen_default.setWidthF(3);
-    this->_pen_selected.setWidthF(3);
+    QColor tmp;
+    tmp.setNamedColor(_config.Default_Pen_Color);
+    _pen_default = QPen(tmp);
+    tmp.setNamedColor(_config.Selected_Pen_Color);
+    _pen_selected = QPen(tmp);
+    tmp.setNamedColor(_config.Background_Color);
+    _brush_background = QBrush(tmp);
 
-    this->_title_height = 35;
-    this->_title_font_size = 16;
-    this->_title_padding = 3;
-    this->_title_font = QFont("Arial",this->_title_font_size);
-    this->_title_color = Qt::white;
-    this->_brush_pure_title_back = QBrush(QColor(153,255,34,170));
-    this->_brush_function_title_back = QBrush(QColor(22,97,171,170));
+    _pen_default.setWidthF(_config.Default_Pen_Width);
+    _pen_selected.setWidthF(_config.Selected_Pen_Width);
+
+    _title_height = _config.Title_Height;
+    _title_font_size = _config.Title_Font_Size;
+    _title_padding = _config.Title_Padding;
+    _title_font = QFont("Arial",_title_font_size);
+    _title_color = _config.Title_Color;
+
+    switch(_func_type)
+    {
+        case Normal:
+            tmp.setNamedColor(_config.Func_Title_Back);
+            break;
+        case Pure:
+            tmp.setNamedColor(_config.Pure_Title_Back);
+            break;
+        case Inline:
+            tmp.setNamedColor(_config.Inline_Title_Back);
+            break;
+        default:
+            break;
+    }
+    _brush_title_back = QBrush(tmp);
 }
 
 void NE_Node_Basic::init_title()
 {
-    this->_title_item = new QGraphicsTextItem(this);
-    this->_title_item->setPlainText(this->_title);
-    this->_title_item->setFont(this->_title_font);
-    this->_title_item->setDefaultTextColor(this->_title_color);
-//    this->_title_item->setPos(this->_title_padding, this->_title_padding);
-    this->_title_item->setPos(static_cast<qreal>(this->_node_width)/2-this->_title_item->boundingRect().width()/2,
-                              this->_title_padding);
+    _title_item = new QGraphicsTextItem(this);
+    _title_item->setPlainText(_title);
+    _title_item->setFont(_title_font);
+    _title_item->setDefaultTextColor(_title_color);
+//    _title_item->setPos(_title_padding, _title_padding);
+    _title_item->setPos(static_cast<qreal>(_node_width)/2-_title_item->boundingRect().width()/2,
+                              _title_padding);
 }
 
 void NE_Node_Basic::add_connected(NE_Node_Basic *node, NE_Line_Basic *edge)
 {
-    this->_connected_nodes.append(node);
-    this->_edges.append(edge);
+    _connected_nodes.append(node);
+    _edges.append(edge);
 }
 
 void NE_Node_Basic::remove_connected(NE_Node_Basic *node, NE_Line_Basic *edge)
 {
-    for(auto i=0; i<this->_connected_nodes.size(); ++i)
+    for(auto i=0; i<_connected_nodes.size(); ++i)
     {
-        if(this->_connected_nodes[i]==node)
+        if(_connected_nodes[i]==node)
         {
-            this->_connected_nodes.remove(i);
+            _connected_nodes.remove(i);
             break;
         }
     }
 
-    for(auto i=0; i<this->_edges.size(); ++i)
+    for(auto i=0; i<_edges.size(); ++i)
     {
-        if(this->_edges[i]==edge)
+        if(_edges[i]==edge)
         {
-            this->_edges.remove(i);
+            _edges.remove(i);
             break;
         }
     }
@@ -283,21 +317,21 @@ void NE_Node_Basic::remove_connected(NE_Node_Basic *node, NE_Line_Basic *edge)
 
 void NE_Node_Basic::remove_self()
 {
-    QVector<NE_Line_Basic*> edges = this->_edges;
+    QVector<NE_Line_Basic*> edges = _edges;
             foreach (NE_Line_Basic *edge, edges) {
             edge->remove_self();
         }
-    this->_scene->removeItem(this);
-    this->_scene->View()->remove_node(this);
+    _scene->removeItem(this);
+    _scene->View()->remove_node(this);
 }
 
 QVariant NE_Node_Basic::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     if(change == QGraphicsItem::ItemPositionChange)
     {
-        if(!this->_edges.empty())
+        if(!_edges.empty())
         {
-            foreach(NE_Line_Basic *edge, this->_edges){
+            foreach(NE_Line_Basic *edge, _edges){
                 edge->update();
             }
         }
@@ -309,28 +343,30 @@ NE_Node::NE_Node(QString title,
                  QString description,
                  QVector<NE_NodeInput *> in_pins,
                  QVector<NE_NodeOutput *> out_pins,
-                 bool is_pure)
+                 bool need_port_transform,
+                 FunctionType functype)
                  : node_title(std::move(title)),
                  node_description(std::move(description)),
                  input_pins(std::move(in_pins)),
                  output_pins(std::move(out_pins)),
+                 _need_port_transform(need_port_transform),
                  NE_Node_Basic(std::move(title),
                                InitNodeInput(in_pins),
                                InitNodeOutput(out_pins),
-                               is_pure)
+                               functype)
 {
 }
 
-QVector<NE_Port_Basic *> NE_Node::InitNodeInput(QVector<NE_NodeInput *> pins) {
-    QVector<NE_Port_Basic *> res;
+QVector<NE_Port_Basic *> NE_Node::InitNodeInput(const QVector<NE_NodeInput *>& pins) {
+    QVector<NE_Port_Basic *> res{};
     foreach(NE_NodeInput *pin, pins){
         res.push_back(pin->Port());
     }
     return res;
 }
 
-QVector<NE_Port_Basic *> NE_Node::InitNodeOutput(QVector<NE_NodeOutput *> pins) {
-    QVector<NE_Port_Basic *> res;
+QVector<NE_Port_Basic *> NE_Node::InitNodeOutput(const QVector<NE_NodeOutput *>& pins) {
+    QVector<NE_Port_Basic *> res{};
     foreach(NE_NodeOutput *pin, pins){
         res.push_back(pin->Port());
     }

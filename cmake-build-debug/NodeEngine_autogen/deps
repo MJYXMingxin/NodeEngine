@@ -492,6 +492,7 @@ NodeEngine_autogen/timestamp: \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QByteArray \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QDeadlineTimer \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QDebug \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QDir \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QEvent \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QFile \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QHash \
@@ -1110,8 +1111,13 @@ NodeEngine_autogen/timestamp: \
 	D:/VSCode_codes/Qt/NodeEngine/src/config.cpp \
 	D:/VSCode_codes/Qt/NodeEngine/src/config.h \
 	D:/VSCode_codes/Qt/NodeEngine/src/main.cpp \
-	D:/VSCode_codes/Qt/NodeEngine/src/nodes/BranchNode.cpp \
-	D:/VSCode_codes/Qt/NodeEngine/src/nodes/BranchNode.h \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/LogicNodes/BranchNode.cpp \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/LogicNodes/BranchNode.h \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/LogicNodes/LogicNodesLibrary.cpp \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/LogicNodes/LogicNodesLibrary.h \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/MathNodes/BasicCalNode.cpp \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/MathNodes/BasicCalNode.h \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/NodeLibraryPluginInterface.h \
 	D:/VSCode_codes/Qt/NodeEngine/src/pch.h \
 	D:/VSCode_codes/lib/assimp/lib/cmake/assimp-5.2/assimpConfig.cmake \
 	D:/VSCode_codes/lib/assimp/lib/cmake/assimp-5.2/assimpConfigVersion.cmake \

@@ -3,55 +3,63 @@
 NE_Port_Basic::NE_Port_Basic(QString port_label,
                              Class port_class,
                              Port_Type type,
+                             bool is_autoport,
+                             QVector<Class> canAutoTransClasses,
                              QGraphicsItem *parent)
         :QGraphicsItem(parent),
-         _port_label(port_label),
+         _port_label(std::move(port_label)),
          _port_class(port_class),
-         _port_type(type)
+         _original_class(port_class),
+         _port_type(type),
+         _is_autoport(is_autoport),
+         _canAutoTransClasses(std::move(canAutoTransClasses)),
+         _parent_item(nullptr),
+         _scene(nullptr)
 {
-    this->_port_color = this->LoadColor(port_class);
+    _port_color = LoadColor(port_class);
 
-    this->_pen_default = QPen(this->_port_color);
-    this->_pen_default.setWidthF(1.5);
-    this->_brush_default = QBrush(this->_port_color);
+    _pen_default = QPen(_port_color);
+    _pen_default.setWidthF(1.5);
+    _brush_default = QBrush(_port_color);
 
     auto cal_unicode = [this]{
         int len = 0;
-        for(auto i = 0; i < this->_port_label.length(); ++i)
+        for(auto i:_port_label)
         {
-            ushort code = this->_port_label.at(i).unicode();
-            if (code >= 0xFF01 && code <= 0xFF5E)//全角
-                len += this->_font_size;
-            else if(code >= 0x0020 && code <= 0x007E)//半角
-                len += this->_font_size*0.6;
-            else//其他字符
-                len += this->_font_size;
+//            if(i.unicode() >= 0xFF01 && i.unicode() <= 0xFF5E)
+//                len += _font_size;
+            if(i.unicode() >= 0x0020 && i.unicode() <= 0x007E)
+                len += static_cast<int>(_font_size*0.75);
+            else
+                len += _font_size;
         }
         return len;
     };
 
-    this->_font = QFont("Arial",this->_font_size);
-    this->_port_label_size = cal_unicode();
-    this->_port_width = this->_port_ico_size + this->_port_label_size;
+    _font = QFont("Arial",_font_size);
+    _port_label_size = cal_unicode();
+    _port_width = _port_ico_size + _port_label_size;
 
-    this->_shadow = new QGraphicsDropShadowEffect();
-    this->_shadow->setOffset(0,0);
-    this->_shadow->setBlurRadius(15);
+    _shadow = new QGraphicsDropShadowEffect();
+    _shadow->setOffset(0,0);
+    _shadow->setBlurRadius(15);
 
-    this->setAcceptHoverEvents(true);
-    this->setFlags(QGraphicsItem::ItemIsFocusable);
+    setAcceptHoverEvents(true);
+    setFlags(QGraphicsItem::ItemIsFocusable);
 }
 
-QRectF NE_Port_Basic::boundingRect() const
+[[maybe_unused]] QRectF NE_Port_Basic::boundingRect() const
 {
-    return QRectF(0,0,this->_port_width,this->_port_ico_size);
+    return {0,0,
+            static_cast<qreal>(_port_width),
+            static_cast<qreal>(_port_ico_size)};
 }
 
 void NE_Port_Basic::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     setCursor(Qt::PointingHandCursor);
-    this->focus();
-    foreach(NE_Line_Basic *edge, this->_edges){
+    focus();
+    foreach(NE_Line_Basic *edge, _edges){
         edge->focus();
     }
     QGraphicsItem::hoverEnterEvent(event);
@@ -60,8 +68,8 @@ void NE_Port_Basic::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 void NE_Port_Basic::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
     unsetCursor();
-    this->disfocus();
-    foreach(NE_Line_Basic *edge, this->_edges){
+    disfocus();
+    foreach(NE_Line_Basic *edge, _edges){
         edge->disfocus();
     }
     QGraphicsItem::hoverLeaveEvent(event);
@@ -69,84 +77,87 @@ void NE_Port_Basic::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 
 void NE_Port_Basic::add_to_parent_node(NE_Node_Basic *parent, NE_Scene *scene)
 {
-    this->setParentItem(parent);
-    this->_parent_item = parent;
-    this->_scene = scene;
+    setParentItem(parent);
+    _parent_item = parent;
+    _scene = scene;
 }
 
 QPointF NE_Port_Basic::get_port_pos()
 {
-    this->_port_pos = this->scenePos();
-    return QPointF(this->_port_pos.x()+0.25*this->_port_ico_size,
-                   this->_port_pos.y()+0.5*this->_port_ico_size);
+    _port_pos = scenePos();
+    return {_port_pos.x()+0.25*_port_ico_size,
+            _port_pos.y()+0.5*_port_ico_size};
 }
 
 void NE_Port_Basic::add_edge(NE_Line_Basic *line, NE_Port_Basic *port)
 {
-    this->conditioned_remove_edge();
-    this->_parent_item->add_connected(port->_parent_item,line);
-    this->_edges.append(line);
-    this->_connected_ports.append(port);
+    conditioned_remove_edge();
+    line->AutoPortTransform();
+    _parent_item->add_connected(port->_parent_item,line);
+    _edges.append(line);
+    _connected_ports.append(port);
 }
 
-bool NE_Port_Basic::is_connect()
+[[maybe_unused]] bool NE_Port_Basic::is_connect()
 {
-    return this->_edges.size();
+    return !_edges.empty();
 }
 
 void NE_Port_Basic::remove_edge(NE_Line_Basic *line)
 {
-    if(!this->_edges.contains(line))
+    if(!_edges.contains(line))
         return;
-    for(auto i=0; i<this->_edges.size(); ++i)
+    for(auto i=0; i<_edges.size(); ++i)
     {
-        if(line == this->_edges[i])
+        if(line == _edges[i])
         {
-            this->_edges.remove(i);
+            _edges.remove(i);
             break;
         }
     }
-    if(line->_source_port=this)
+    if(line->_source_port==this)
     {
-        for(auto i=0; i<this->_connected_ports.size(); ++i)
+        for(auto i=0; i<_connected_ports.size(); ++i)
         {
-            if(line->_des_port == this->_connected_ports[i])
+            if(line->_des_port == _connected_ports[i])
             {
-                this->_connected_ports.remove(i);
+                _connected_ports.remove(i);
                 break;
             }
         }
-        this->_parent_item->remove_connected(line->_des_port->_parent_item,line);
+        _parent_item->remove_connected(line->_des_port->_parent_item,line);
     }
     else
     {
-        for(auto i=0; i<this->_connected_ports.size(); ++i)
+        for(auto i=0; i<_connected_ports.size(); ++i)
         {
-            if(line->_source_port == this->_connected_ports[i])
+            if(line->_source_port == _connected_ports[i])
             {
-                this->_connected_ports.remove(i);
+                _connected_ports.remove(i);
                 break;
             }
         }
-        this->_parent_item->remove_connected(line->_source_port->_parent_item,line);
+        _parent_item->remove_connected(line->_source_port->_parent_item,line);
     }
-    this->disfocus();
+    if(_is_autoport)
+        AutoTransform(_original_class);
+    disfocus();
 }
 
 void NE_Port_Basic::remove_all_edge()
 {
-    foreach(NE_Line_Basic *edge, this->_edges){
+    foreach(NE_Line_Basic *edge, _edges){
         edge->remove_self();
     }
 }
 
 void NE_Port_Basic::conditioned_remove_edge()
 {
-    if(this->_port_type == PORT_EXEC_IN || this->_port_type == PORT_PARAM_IN)
+    if(_port_type == PORT_EXEC_IN || _port_type == PORT_PARAM_IN || _port_type == PORT_EXEC_OUT)
     {
-        if(this->_edges.size()>0)
+        if(!_edges.empty())
         {
-            foreach(NE_Line_Basic *edge, this->_edges){
+            foreach(NE_Line_Basic *edge, _edges){
                 edge->remove_self();
             }
         }
@@ -203,315 +214,355 @@ EXECport::EXECport(QString port_label,
                    Class port_class,
                    Port_Type type,
                    QGraphicsItem *parent)
-        :NE_Port_Basic(port_label, port_class, type, parent)
+                   :NE_Port_Basic(std::move(port_label),
+                                  port_class,
+                                  type,
+                                  false,
+                                  {},
+                                  parent)
 {}
 
-void EXECport::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    auto port_outline = QPainterPath();
-    auto poly = QPolygonF();
-    poly.append(QPointF(0,0.2*this->_port_ico_size));
-    poly.append(QPointF(0.25*this->_port_ico_size,0.2*this->_port_ico_size));
-    poly.append(QPointF(0.5*this->_port_ico_size,0.5*this->_port_ico_size));
-    poly.append(QPointF(0.25*this->_port_ico_size,0.8*this->_port_ico_size));
-    poly.append(QPointF(0,0.8*this->_port_ico_size));
-
-    port_outline.addPolygon(poly);
-
-    if(!this->is_connected())
-    {
-        painter->setPen(this->_pen_default);
-        painter->setBrush(Qt::NoBrush);
-        painter->drawPath(port_outline.simplified());
-    }
-    else
-    {
-        painter->setPen(Qt::NoPen);
-        painter->setBrush(this->_brush_default);
-        painter->drawPath(port_outline.simplified());
-    }
-
-    if(this->_is_focused)
-    {
-        this->_shadow->setColor(Qt::yellow);
-        this->setGraphicsEffect(this->_shadow);
-    }
-    else
-    {
-        this->_shadow->setColor(Qt::transparent);
-        this->setGraphicsEffect(this->_shadow);
-    }
-}
+//void EXECport::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+//{
+//    auto port_outline = QPainterPath();
+//    auto poly = QPolygonF();
+//    poly.append(QPointF(0,0.2*_port_ico_size));
+//    poly.append(QPointF(0.25*_port_ico_size,0.2*_port_ico_size));
+//    poly.append(QPointF(0.5*_port_ico_size,0.5*_port_ico_size));
+//    poly.append(QPointF(0.25*_port_ico_size,0.8*_port_ico_size));
+//    poly.append(QPointF(0,0.8*_port_ico_size));
+//
+//    port_outline.addPolygon(poly);
+//
+//    if(!is_connected())
+//    {
+//        painter->setPen(_pen_default);
+//        painter->setBrush(Qt::NoBrush);
+//        painter->drawPath(port_outline.simplified());
+//    }
+//    else
+//    {
+//        painter->setPen(Qt::NoPen);
+//        painter->setBrush(_brush_default);
+//        painter->drawPath(port_outline.simplified());
+//    }
+//
+//    if(_is_focused)
+//    {
+//        _shadow->setColor(Qt::yellow);
+//        setGraphicsEffect(_shadow);
+//    }
+//    else
+//    {
+//        _shadow->setColor(Qt::transparent);
+//        setGraphicsEffect(_shadow);
+//    }
+//}
 
 void EXECInPort::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    if(!this->is_connected())
+    if(!is_connected())
     {
-        painter->setPen(this->_pen_default);
+        painter->setPen(_pen_default);
         painter->setBrush(Qt::NoBrush);
     }
     else
     {
         painter->setPen(Qt::NoPen);
-        painter->setBrush(this->_brush_default);
+        painter->setBrush(_brush_default);
     }
 
     auto port_outline = QPainterPath();
     auto poly = QPolygonF();
-    poly.append(QPointF(0,0.2*this->_port_ico_size));
-    poly.append(QPointF(0.25*this->_port_ico_size,0.2*this->_port_ico_size));
-    poly.append(QPointF(0.5*this->_port_ico_size,0.5*this->_port_ico_size));
-    poly.append(QPointF(0.25*this->_port_ico_size,0.8*this->_port_ico_size));
-    poly.append(QPointF(0,0.8*this->_port_ico_size));
+    poly.append(QPointF(0,0.2*_port_ico_size));
+    poly.append(QPointF(0.25*_port_ico_size,0.2*_port_ico_size));
+    poly.append(QPointF(0.5*_port_ico_size,0.5*_port_ico_size));
+    poly.append(QPointF(0.25*_port_ico_size,0.8*_port_ico_size));
+    poly.append(QPointF(0,0.8*_port_ico_size));
 
     port_outline.addPolygon(poly);
     painter->drawPath(port_outline.simplified());
 
-    float AlphaF = 2.0f*(this->_scene->getScale())-1.0f;
+    auto AlphaF = static_cast<float>(4.0f*(_scene->getScale())-3.0f);
     AlphaF > 1.0f ? AlphaF = 1.0f : AlphaF;
     AlphaF < 0.0f ? AlphaF = 0.0f : AlphaF;
-    QColor color = this->_port_color;
+    QColor color = _port_color;
     color.setAlphaF(AlphaF);
     QPen pen(color);
     painter->setPen(pen);
-    painter->drawText(QRectF(this->_port_ico_size,0.15*this->_port_ico_size,
-                             this->_port_label_size,this->_port_ico_size),
-                      Qt::AlignmentFlag::AlignLeft,this->_port_label);
+    painter->drawText(QRectF(_port_ico_size,0.15*_port_ico_size,
+                             _port_label_size,_port_ico_size),
+                      Qt::AlignmentFlag::AlignLeft,_port_label);
 
-    if(this->_is_focused)
+    if(_is_focused)
     {
-        this->_shadow->setColor(Qt::yellow);
-        this->setGraphicsEffect(this->_shadow);
+        _shadow->setColor(Qt::yellow);
+        setGraphicsEffect(_shadow);
     }
     else
     {
-        this->_shadow->setColor(Qt::transparent);
-        this->setGraphicsEffect(this->_shadow);
+        _shadow->setColor(Qt::transparent);
+        setGraphicsEffect(_shadow);
     }
 }
 
 void EXECOutPort::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
 
-    float AlphaF = 2.0f*(this->_scene->getScale())-1.0f;
+    auto AlphaF = static_cast<float>(4.0f*(_scene->getScale())-3.0f);
     AlphaF > 1.0f ? AlphaF = 1.0f : AlphaF;
     AlphaF < 0.0f ? AlphaF = 0.0f : AlphaF;
-    QColor color = this->_port_color;
+    QColor color = _port_color;
     color.setAlphaF(AlphaF);
     QPen pen(color);
     painter->setPen(pen);
-    painter->drawText(QRectF(0,0.15*this->_port_ico_size,
-                             this->_port_label_size,this->_port_ico_size),
-                      Qt::AlignmentFlag::AlignRight,this->_port_label);
+    painter->drawText(QRectF(0,0.15*_port_ico_size,
+                             _port_label_size,_port_ico_size),
+                      Qt::AlignmentFlag::AlignRight,_port_label);
 
-    if(!this->is_connected())
+    if(!is_connected())
     {
-        painter->setPen(this->_pen_default);
+        painter->setPen(_pen_default);
         painter->setBrush(Qt::NoBrush);
     }
     else
     {
         painter->setPen(Qt::NoPen);
-        painter->setBrush(this->_brush_default);
+        painter->setBrush(_brush_default);
     }
 
     auto port_outline = QPainterPath();
     auto poly = QPolygonF();
-    poly.append(QPointF(this->_port_label_size+0.25*this->_port_ico_size,0.2*this->_port_ico_size));
-    poly.append(QPointF(this->_port_label_size+0.25*this->_port_ico_size+0.25*this->_port_ico_size,0.2*this->_port_ico_size));
-    poly.append(QPointF(this->_port_label_size+0.25*this->_port_ico_size+0.5*this->_port_ico_size,0.5*this->_port_ico_size));
-    poly.append(QPointF(this->_port_label_size+0.25*this->_port_ico_size+0.25*this->_port_ico_size,0.8*this->_port_ico_size));
-    poly.append(QPointF(this->_port_label_size+0.25*this->_port_ico_size,0.8*this->_port_ico_size));
+    poly.append(QPointF(_port_label_size+0.25*_port_ico_size,0.2*_port_ico_size));
+    poly.append(QPointF(_port_label_size+0.25*_port_ico_size+0.25*_port_ico_size,0.2*_port_ico_size));
+    poly.append(QPointF(_port_label_size+0.25*_port_ico_size+0.5*_port_ico_size,0.5*_port_ico_size));
+    poly.append(QPointF(_port_label_size+0.25*_port_ico_size+0.25*_port_ico_size,0.8*_port_ico_size));
+    poly.append(QPointF(_port_label_size+0.25*_port_ico_size,0.8*_port_ico_size));
 
     port_outline.addPolygon(poly);
     painter->drawPath(port_outline.simplified());
 
-    if(this->_is_focused)
+    if(_is_focused)
     {
-        this->_shadow->setColor(Qt::yellow);
-        this->setGraphicsEffect(this->_shadow);
+        _shadow->setColor(Qt::yellow);
+        setGraphicsEffect(_shadow);
     }
     else
     {
-        this->_shadow->setColor(Qt::transparent);
-        this->setGraphicsEffect(this->_shadow);
+        _shadow->setColor(Qt::transparent);
+        setGraphicsEffect(_shadow);
     }
 }
 
 QPointF EXECOutPort::get_port_pos()
 {
-    auto pos = this->scenePos();
-    return QPointF(pos.x()+ this->_port_label_size+0.5*this->_port_ico_size,
-                   pos.y() + 0.5*this->_port_ico_size);
+    auto pos = scenePos();
+    return {pos.x()+ _port_label_size+0.5*_port_ico_size,
+            pos.y() + 0.5*_port_ico_size};
 }
 
 PARAM_IN_Port::PARAM_IN_Port(QString port_label,
                              Class port_class,
+                             bool is_Auto,
+                             QVector<Class> canAutoTransClasses,
                              Port_Type type,
                              QGraphicsItem *parent)
-        :NE_Port_Basic(port_label, port_class, type, parent)
+                             :NE_Port_Basic(std::move(port_label),
+                                            port_class,
+                                            type,
+                                            is_Auto,
+                                            std::move(canAutoTransClasses),
+                                            parent)
 {}
 
 void PARAM_IN_Port::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    if(!this->is_connected())
+    if(!is_connected())
     {
-        painter->setPen(this->_pen_default);
+        painter->setPen(_pen_default);
         painter->setBrush(Qt::NoBrush);
     }
     else
     {
         painter->setPen(Qt::NoPen);
-        painter->setBrush(this->_brush_default);
+        painter->setBrush(_brush_default);
     }
-    painter->drawEllipse(QPointF(0.25*this->_port_ico_size,0.5*this->_port_ico_size),
-                         0.25*this->_port_ico_size,0.25*this->_port_ico_size);
+    painter->drawEllipse(QPointF(0.25*_port_ico_size,0.5*_port_ico_size),
+                         0.25*_port_ico_size,0.25*_port_ico_size);
 
     auto poly = QPolygonF();
-    poly.append(QPointF(0.6*this->_port_ico_size,0.35*this->_port_ico_size));
-    poly.append(QPointF(0.75*this->_port_ico_size,0.5*this->_port_ico_size));
-    poly.append(QPointF(0.6*this->_port_ico_size,0.65*this->_port_ico_size));
+    poly.append(QPointF(0.6*_port_ico_size,0.35*_port_ico_size));
+    poly.append(QPointF(0.75*_port_ico_size,0.5*_port_ico_size));
+    poly.append(QPointF(0.6*_port_ico_size,0.65*_port_ico_size));
 
-    painter->setBrush(this->_brush_default);
+    painter->setBrush(_brush_default);
     painter->setPen(Qt::NoPen);
     painter->drawPolygon(poly);
 
-    float AlphaF = 2.0f*(this->_scene->getScale())-1.0f;
+    auto AlphaF = static_cast<float>(4.0f*(_scene->getScale())-3.0f);
     AlphaF > 1.0f ? AlphaF = 1.0f : AlphaF;
     AlphaF < 0.0f ? AlphaF = 0.0f : AlphaF;
-    QColor color = this->_port_color;
+    QColor color = _port_color;
     color.setAlphaF(AlphaF);
     QPen pen(color);
-    //    painter->setPen(this->_pen_default);
+    //    painter->setPen(_pen_default);
     painter->setPen(pen);
-    painter->drawText(QRectF(this->_port_ico_size,0.15*this->_port_ico_size,
-                             this->_port_label_size,this->_port_ico_size),
-                      Qt::AlignmentFlag::AlignLeft,this->_port_label);
+    painter->drawText(QRectF(_port_ico_size,0.15*_port_ico_size,
+                             _port_label_size,_port_ico_size),
+                      Qt::AlignmentFlag::AlignLeft,_port_label);
 
-    if(this->_is_focused)
+    if(_is_focused)
     {
-        this->_shadow->setColor(Qt::yellow);
-        this->setGraphicsEffect(this->_shadow);
+        _shadow->setColor(Qt::yellow);
+        setGraphicsEffect(_shadow);
     }
     else
     {
-        this->_shadow->setColor(Qt::transparent);
-        this->setGraphicsEffect(this->_shadow);
+        _shadow->setColor(Qt::transparent);
+        setGraphicsEffect(_shadow);
     }
 }
 
 PARAM_OUT_Port::PARAM_OUT_Port(QString port_label,
                                Class port_class,
+                               bool is_Auto,
+                               QVector<Class> canAutoTransClasses,
                                Port_Type type,
                                QGraphicsItem *parent)
-        :NE_Port_Basic(port_label, port_class, type, parent)
+                               :NE_Port_Basic(std::move(port_label),
+                                              port_class,
+                                              type,
+                                              is_Auto,
+                                              std::move(canAutoTransClasses),
+                                              parent)
 {}
 
 void PARAM_OUT_Port::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    float AlphaF = 2.0f*(this->_scene->getScale())-1.0f;
+    auto AlphaF = static_cast<float>(4.0f*(_scene->getScale())-3.0f);
     AlphaF > 1.0f ? AlphaF = 1.0f : AlphaF;
     AlphaF < 0.0f ? AlphaF = 0.0f : AlphaF;
-    QColor color = this->_port_color;
+    QColor color = _port_color;
     color.setAlphaF(AlphaF);
     QPen pen(color);
-//    painter->setPen(this->_pen_default);
+//    painter->setPen(_pen_default);
     painter->setPen(pen);
-    painter->drawText(QRectF(0,0.15*this->_port_ico_size,
-                             this->_port_label_size,this->_port_ico_size),
-                      Qt::AlignmentFlag::AlignRight,this->_port_label);
+    painter->drawText(QRectF(0,0.15*_port_ico_size,
+                             _port_label_size,_port_ico_size),
+                      Qt::AlignmentFlag::AlignRight,_port_label);
 
-    if(!this->is_connected())
+    if(!is_connected())
     {
-        painter->setPen(this->_pen_default);
+        painter->setPen(_pen_default);
         painter->setBrush(Qt::NoBrush);
     }
     else
     {
         painter->setPen(Qt::NoPen);
-        painter->setBrush(this->_brush_default);
+        painter->setBrush(_brush_default);
     }
 
-    painter->drawEllipse(QPointF(this->_port_label_size+0.5*this->_port_ico_size,0.5*this->_port_ico_size),
-                         0.25*this->_port_ico_size,0.25*this->_port_ico_size);
+    painter->drawEllipse(QPointF(_port_label_size+0.5*_port_ico_size,0.5*_port_ico_size),
+                         0.25*_port_ico_size,0.25*_port_ico_size);
 
     auto poly = QPolygonF();
-    poly.append(QPointF(this->_port_label_size+0.85*this->_port_ico_size,0.35*this->_port_ico_size));
-    poly.append(QPointF(this->_port_label_size+this->_port_ico_size,0.5*this->_port_ico_size));
-    poly.append(QPointF(this->_port_label_size+0.85*this->_port_ico_size,0.65*this->_port_ico_size));
+    poly.append(QPointF(_port_label_size+0.85*_port_ico_size,0.35*_port_ico_size));
+    poly.append(QPointF(_port_label_size+_port_ico_size,0.5*_port_ico_size));
+    poly.append(QPointF(_port_label_size+0.85*_port_ico_size,0.65*_port_ico_size));
 
-    painter->setBrush(this->_brush_default);
+    painter->setBrush(_brush_default);
     painter->setPen(Qt::NoPen);
     painter->drawPolygon(poly);
 
-    if(this->_is_focused)
+    if(_is_focused)
     {
-        this->_shadow->setColor(Qt::yellow);
-        this->setGraphicsEffect(this->_shadow);
+        _shadow->setColor(Qt::yellow);
+        setGraphicsEffect(_shadow);
     }
     else
     {
-        this->_shadow->setColor(Qt::transparent);
-        this->setGraphicsEffect(this->_shadow);
+        _shadow->setColor(Qt::transparent);
+        setGraphicsEffect(_shadow);
     }
 }
 
 QPointF PARAM_OUT_Port::get_port_pos()
 {
-    auto pos = this->scenePos();
-    return QPointF(pos.x()+ this->_port_label_size+0.5*this->_port_ico_size,
-                   pos.y() + 0.5*this->_port_ico_size);
+    auto pos = scenePos();
+    return {pos.x()+ _port_label_size+0.5*_port_ico_size,
+            pos.y() + 0.5*_port_ico_size};
 }
 
 
-NE_Pin::NE_Pin(QString pin_name, Class pin_class, QString pin_type)
-        :_pin_name(std::move(pin_name)),
-         _pin_class(pin_class),
-         _pin_type(std::move(pin_type))
+NE_Pin::NE_Pin(QString pin_name,
+               Class pin_class,
+               QString pin_type,
+               bool isAuto,
+               const QVector<Class> &canAutoTransClasses)
+               :_pin_name(std::move(pin_name)),
+               _pin_class(pin_class),
+               _pin_type(std::move(pin_type)),
+               _canAutoTransClasses(canAutoTransClasses),
+               port(nullptr),
+               _val(),
+               _cur_session(-1),
+               _has_set_val(false)
 {
-    initialize();
+    initialize(isAuto);
 }
 
-void NE_Pin::init_port()
+void NE_Pin::init_port(bool is_autoport)
 {}
 
-void NE_Pin::initialize()
+void NE_Pin::initialize(bool is_autoport)
 {
-    init_port();
+    init_port(is_autoport);
 }
 
-NE_NodeInput::NE_NodeInput(QString pin_name, Class pin_class, QString pin_type)
-: NE_Pin(std::move(pin_name),
-         pin_class,
-         std::move(pin_type))
+NE_NodeInput::NE_NodeInput(QString pin_name,
+                           Class pin_class,
+                           QString pin_type,
+                           bool isAuto,
+                           const QVector<Class> &canAutoTransClasses)
+                           : NE_Pin(std::move(pin_name),
+                                    pin_class,
+                                    std::move(pin_type),
+                                    isAuto,
+                                    canAutoTransClasses)
 {
-    initialize();
+    initialize(isAuto);
 }
 
-void NE_NodeInput::init_port()
+void NE_NodeInput::init_port(bool isAuto)
 {
-    if(this->_pin_type == "data")
-        this->port = new PARAM_IN_Port(this->_pin_name,this->_pin_class);
-    else if(this->_pin_type == "exec")
-        this->port = new EXECInPort(this->_pin_name);
+    if(_pin_type == "data")
+        port = new PARAM_IN_Port(_pin_name,_pin_class,isAuto,_canAutoTransClasses);
+    else if(_pin_type == "exec")
+        port = new EXECInPort(_pin_name);
     else
-        this->port = nullptr;
+        port = nullptr;
 }
 
-NE_NodeOutput::NE_NodeOutput(QString pin_name, Class pin_class, QString pin_type)
-        : NE_Pin(std::move(pin_name),
-                 pin_class,
-                 std::move(pin_type))
+NE_NodeOutput::NE_NodeOutput(QString pin_name,
+                             Class pin_class,
+                             QString pin_type,
+                             bool isAuto,
+                             const QVector<Class> &canAutoTransClasses)
+                             : NE_Pin(std::move(pin_name),
+                                      pin_class,
+                                      std::move(pin_type),
+                                      isAuto,
+                                      canAutoTransClasses)
 {
-    initialize();
+    initialize(isAuto);
 }
 
-void NE_NodeOutput::init_port()
+void NE_NodeOutput::init_port(bool isAuto)
 {
-    if(this->_pin_type == "data")
-        this->port = new PARAM_OUT_Port(this->_pin_name,this->_pin_class);
-    else if(this->_pin_type == "exec")
-        this->port = new EXECOutPort(this->_pin_name);
+    if(_pin_type == "data")
+        port = new PARAM_OUT_Port(_pin_name,_pin_class,isAuto,_canAutoTransClasses);
+    else if(_pin_type == "exec")
+        port = new EXECOutPort(_pin_name);
     else
-        this->port = nullptr;
+        port = nullptr;
 }

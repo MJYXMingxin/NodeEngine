@@ -17,10 +17,11 @@ public:
                   NE_Scene *scene=nullptr);
     void update_edge_path();
     void add_to_scene();
+    void AutoPortTransform() const;
 
     void remove_self();
 
-    bool FocusState();
+    [[nodiscard]] bool FocusState() const;
     void focus();
     void disfocus();
 protected:
@@ -87,14 +88,13 @@ public:
 
     void reset_points();
     void update_points(QPointF point);
-    void remove_intersect_edges(QVector<NE_Line_Basic*> edges);
+    void remove_intersect_edges(const QVector<NE_Line_Basic*> &edges);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 protected:
     QVector<QPointF> _line_points = {};
 
     QPen _pen = QPen(Qt::white);
-
 };
 
 #endif // NE_LINE_BASIC_H

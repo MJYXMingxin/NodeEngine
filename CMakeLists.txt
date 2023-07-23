@@ -18,6 +18,9 @@ find_package(Qt6 COMPONENTS
 find_package(OpenGL REQUIRED)
 find_package(assimp REQUIRED)
 
+set(EXE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
+set(DLL_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
+
 set(RESOURCE_FILES
         resource/icons/icons.qrc
         resource/images/images.qrc
@@ -25,7 +28,6 @@ set(RESOURCE_FILES
         )
 qt_add_resources(QT_RESOURCES ${RESOURCE_FILES})
 
-set(PRECOMPILED_HEADER pch.h)
 set(PROJECT_SOURCES
         src/main.cpp
         src/NE_Editor.cpp
@@ -45,10 +47,34 @@ set(PROJECT_SOURCES
         src/NE_Port_Basic.h
         src/NE_Line_Basic.cpp
         src/NE_Line_Basic.h
-        src/nodes/BranchNode.cpp
-        src/nodes/BranchNode.h)
+        src/nodes/LogicNodes/BranchNode.cpp
+        src/nodes/LogicNodes/BranchNode.h
+        src/nodes/MathNodes/BasicCalNode.cpp
+        src/nodes/MathNodes/BasicCalNode.h
+        src/nodes/NodeLibraryPluginInterface.h
+        src/nodes/LogicNodes/LogicNodesLibrary.cpp
+        src/nodes/LogicNodes/LogicNodesLibrary.h)
+
+set(PRECOMPILED_HEADER pch.h)
+add_library(Logic SHARED ${PROJECT_SOURCES})
+set_target_properties(Logic PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY "${DLL_OUTPUT_PATH}"
+        LIBRARY_OUTPUT_DIRECTORY "${DLL_OUTPUT_PATH}"
+        RUNTIME_OUTPUT_DIRECTORY "${DLL_OUTPUT_PATH}"
+        PREFIX "")
+target_link_libraries(Logic
+        Qt::Core
+        Qt::Gui
+        Qt::Widgets
+        )
 
 add_executable(NodeEngine ${PROJECT_SOURCES} ${QT_RESOURCES})
+set_target_properties(NodeEngine PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY "${EXE_OUTPUT_PATH}"
+        LIBRARY_OUTPUT_DIRECTORY "${EXE_OUTPUT_PATH}"
+        RUNTIME_OUTPUT_DIRECTORY "${EXE_OUTPUT_PATH}"
+        PREFIX "")
+
 target_link_libraries(NodeEngine
         Qt::Core
         Qt::Gui

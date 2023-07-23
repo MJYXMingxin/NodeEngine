@@ -23,13 +23,12 @@ QJsonObject SearchObj(ObjType type)
         {
             case Scene:
                 return SceneJsonObj();
-
             case View:
                 return ViewJsonObj();
-
+            case Node:
+                return NodeJsonObj();
             case Param:
                 return ParamJsonObj();
-
             default:
                 return Null;
         }
@@ -70,6 +69,12 @@ QJsonObject ViewJsonObj()
     return Obj["view"].toObject();
 }
 
+QJsonObject NodeJsonObj()
+{
+    auto Obj = QJsonObj();
+    return Obj["node"].toObject();
+}
+
 QJsonObject ParamJsonObj()
 {
     auto Obj = QJsonObj();
@@ -81,7 +86,7 @@ void checkConfig()
     if(!QFile::exists("./config.json"))
     {
         QJsonObject json;
-        // 添加一个名为"scene"的子对象
+
         QJsonObject scene;
         scene["Scene_Background_Color"] = SCENE_BACKGROUND_COLOR;
         scene["Dot_Normal_Color"] = DOT_NORMAL_COLOR;
@@ -98,7 +103,7 @@ void checkConfig()
         scene["editor_screen_height"] = EDITOR_SCREEN_HEIGHT;
         scene["canvas_style"] = CANVAS_STYLE;
         json["scene"] = scene;
-        // 添加一个名为"view"的子对象
+
         QJsonObject view;
         QJsonObject clamp;
         clamp["min"] = CLAMP_MIN;
@@ -106,7 +111,22 @@ void checkConfig()
         view["Clamp"] = clamp;
         view["Zoom_factor"] = ZOOM_FACTOR;
         json["view"] = view;
-        // 添加一个名为"param"的子对象
+
+        QJsonObject node;
+        node["Default_Pen_Color"] = DEFAULT_PEN_COLOR;
+        node["Selected_Pen_Color"] = SELECTED_PEN_COLOR;
+        node["Background_Color"] = BACKGROUND_COLOR;
+        node["Default_Pen_Width"] = DEFAULT_PEN_WIDTH;
+        node["Selected_Pen_Width"] = SELECTED_PEN_WIDTH;
+        node["Title_Height"] = NODE_TITLE_HEIGHT;
+        node["Title_Font_Size"] = TITLE_FONT_SIZE;
+        node["Title_Padding"] = TITLE_PADDING;
+        node["Title_Color"] = TITLE_COLOR;
+        node["Pure_Title_Back"] = PURE_TITLE_BACK;
+        node["Func_Title_Back"] = FUNC_TITLE_BACK;
+        node["Inline_Title_Back"] = INLINE_TITLE_BACK;
+        json["node"] = node;
+
         QJsonObject param;
         param["exec"] = PARAM_COLOR_EXEC;
         param["bool"] = PARAM_COLOR_BOOL;

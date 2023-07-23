@@ -25,7 +25,7 @@ public:
 //    void getConfig();
     QPointF map_mouse_to_scene();
 
-    NE_View *getView();
+    [[maybe_unused]] NE_View *getView();
 
     void debugcustomNode(QPointF pos);
     void debugNode(QPointF pos);
@@ -40,9 +40,6 @@ private:
     NE_Scene *_scene;
     QPoint _restore_pos;
     QSize _restore_size;
-
-    double _zoom_clamp[2];
-    double _zoom_factor;
 private:
     void setScale(double scale);
 private slots:

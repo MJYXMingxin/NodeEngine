@@ -17,7 +17,7 @@ public:
     explicit NE_Node_Basic(QString title = "Test",
                   QVector<NE_Port_Basic*> in = {},
                   QVector<NE_Port_Basic*> out = {},
-                  bool is_pure = false,
+                  FunctionType functype = Normal,
                   QPointF node_pos=QPointF(0,0),
                   QGraphicsItem *parent = nullptr,
                   NE_Scene *scene = nullptr);
@@ -28,7 +28,7 @@ public:
 
     void set_scene(NE_Scene *scene);
 
-    void init_exec();
+    [[maybe_unused]] void init_exec();
 
     void init_param();
 
@@ -57,12 +57,14 @@ public:
     void remove_self();
 
 protected:
+    QJsonObject _obj;
+    Config_Node _config;
 //    int _node_width_min = 20;
     int _node_height_min = 20;
     int _node_width = 50;
     int _node_height = 50;
     int _node_radius = 10;
-    int _port_space = 30;
+    int _port_space = 15;
     int _port_padding = 5;
 
     QPointF _node_pos;
@@ -80,11 +82,10 @@ protected:
     int _title_padding;
     QFont _title_font;
     QColor _title_color;
-    QBrush _brush_function_title_back;
-    QBrush _brush_pure_title_back;
+    QBrush _brush_title_back;
     QGraphicsTextItem *_title_item;
 
-    bool _is_pure;
+    FunctionType _func_type;
 
     int _max_param_width = 0;
     int _max_output_width = 0;
@@ -100,15 +101,20 @@ protected:
 
 class NE_Node : public NE_Node_Basic
 {
+Q_OBJECT
 public:
     explicit NE_Node(QString title = "Test",
                      QString description = "",
                      QVector<NE_NodeInput *> in_pins = {},
                      QVector<NE_NodeOutput *> out_pins = {},
-                     bool is_pure = false);
+                     bool need_port_transform = false,
+                     FunctionType functype = Normal);
     [[nodiscard]] virtual int run_node() = 0;
-    static QVector<NE_Port_Basic *> InitNodeInput(QVector<NE_NodeInput*> pins);
-    static QVector<NE_Port_Basic *> InitNodeOutput(QVector<NE_NodeOutput*> pins);
+    static QVector<NE_Port_Basic *> InitNodeInput(const QVector<NE_NodeInput*>& pins);
+    static QVector<NE_Port_Basic *> InitNodeOutput(const QVector<NE_NodeOutput*>& pins);
+
+    NE_NodeInput *get_input_pin(int index) { return input_pins[index]; }
+    NE_NodeOutput *get_output_pin(int index) { return output_pins[index]; }
 
 protected:
     QString node_title = "";
@@ -117,6 +123,7 @@ protected:
     QVector<NE_NodeOutput *> output_pins = {};
     bool _input_data_ready = false;
     bool _output_data_ready = false;
+    bool _need_port_transform = false;
 };
 
 #endif

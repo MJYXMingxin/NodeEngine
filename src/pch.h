@@ -51,6 +51,8 @@
 #include <QMenuBar>
 #include <QAction>
 #include <QKeySequence>
+#include <QMap>
+#include <QDir>
 //#include <QtOpenGLWidgets/QOpenGLWidget>
 #include <QDebug>
 

@@ -1,0 +1,53 @@
+{
+    "node": {
+        "Background_Color": "#151515",
+        "Default_Pen_Color": "#313131",
+        "Default_Pen_Width": 3,
+        "Func_Title_Back": "#1661ab",
+        "Inline_Title_Back": "#9d9d9d",
+        "Pure_Title_Back": "#5db662",
+        "Selected_Pen_Color": "#ffee00",
+        "Selected_Pen_Width": 3,
+        "Title_Color": "#ffffff",
+        "Title_Font_Size": 16,
+        "Title_Height": 35,
+        "Title_Padding": 3
+    },
+    "param": {
+        "bool": "#860000",
+        "byte": "#005850",
+        "else": "#1772b4",
+        "enum": "#1a6840",
+        "exec": "#ffffff",
+        "float": "#99ff22",
+        "int": "#228b22",
+        "string": "#f91ec5",
+        "struct": "#5d3131",
+        "unknown": "#aaaaaa",
+        "vec2": "#57c3c2",
+        "vec3": "#7cabb1"
+    },
+    "scene": {
+        "Dot_Chunk_Size": 5,
+        "Dot_Grid_Size": 100,
+        "Dot_Lighter_Color": "#151515",
+        "Dot_Lighter_Size": 7.5,
+        "Dot_Normal_Color": "#313131",
+        "Dot_Normal_Size": 5,
+        "Line_Chunk_Size": 10,
+        "Line_Grid_Size": 50,
+        "Line_Lighter_Size": 3,
+        "Line_Normal_Size": 2,
+        "Scene_Background_Color": "#212121",
+        "canvas_style": 0,
+        "editor_screen_height": 10000,
+        "editor_screen_width": 10000
+    },
+    "view": {
+        "Clamp": {
+            "max": 5,
+            "min": 0.25
+        },
+        "Zoom_factor": 1.1
+    }
+}

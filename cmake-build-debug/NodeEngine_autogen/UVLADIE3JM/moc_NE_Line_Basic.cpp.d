@@ -456,6 +456,7 @@ D:/VSCode_codes/Qt/NodeEngine/cmake-build-debug/NodeEngine_autogen/UVLADIE3JM/mo
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QByteArray \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QDeadlineTimer \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QDebug \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QDir \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QEvent \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QFile \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QHash \

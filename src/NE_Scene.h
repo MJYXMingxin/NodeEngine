@@ -10,7 +10,7 @@ class NE_Scene : public QGraphicsScene
 Q_OBJECT
 public:
     explicit NE_Scene(QObject *parent = nullptr);
-    void getConfig();
+    void loadConfig();
     void setView(NE_View* view);
     void drawDots(QPainter *painter, const QRectF &rect);
     void drawLines(QPainter *painter, const QRectF &rect);

@@ -3,271 +3,271 @@
 NE_Title::NE_Title(QWidget *parent)
         : QWidget{parent}
 {
-    this->init_title();
-    this->init_menubar();
-    this->init_title_bar();
-    this->init_control();
-    this->loadStyleSheet("TitleBar");
+    init_title();
+    init_menubar();
+    init_title_bar();
+    init_control();
+    loadStyleSheet("TitleBar");
 }
 
 void NE_Title::init_title()
 {
-    this->_ico = new QLabel;
-    this->_title = new QLabel;
-    this->_menu = new QMenuBar;
-    this->_min = new QPushButton;
-    this->_max = new QPushButton;
-    this->_restore = new QPushButton;
-    this->_close = new QPushButton;
+    _ico = new QLabel;
+    _title = new QLabel;
+    _menu = new QMenuBar;
+    _min = new QPushButton;
+    _max = new QPushButton;
+    _restore = new QPushButton;
+    _close = new QPushButton;
 
-    this->_menu->setFixedWidth(700);
+    _menu->setFixedWidth(700);
 
-    this->_min->setFixedSize(QSize(BUTTON_WIDTH, BUTTON_HEIGHT));
-    this->_max->setFixedSize(QSize(BUTTON_WIDTH, BUTTON_HEIGHT));
-    this->_restore->setFixedSize(QSize(BUTTON_WIDTH, BUTTON_HEIGHT));
-    this->_close->setFixedSize(QSize(BUTTON_WIDTH, BUTTON_HEIGHT));
+    _min->setFixedSize(QSize(BUTTON_WIDTH, BUTTON_HEIGHT));
+    _max->setFixedSize(QSize(BUTTON_WIDTH, BUTTON_HEIGHT));
+    _restore->setFixedSize(QSize(BUTTON_WIDTH, BUTTON_HEIGHT));
+    _close->setFixedSize(QSize(BUTTON_WIDTH, BUTTON_HEIGHT));
 
-    this->_title->setObjectName("Title");
-    this->_min->setObjectName("ButtonMin");
-    this->_max->setObjectName("ButtonMax");
-    this->_restore->setObjectName("ButtonRestore");
-    this->_close->setObjectName("ButtonClose");
+    _title->setObjectName("Title");
+    _min->setObjectName("ButtonMin");
+    _max->setObjectName("ButtonMax");
+    _restore->setObjectName("ButtonRestore");
+    _close->setObjectName("ButtonClose");
 
-    this->_min->setToolTip(QStringLiteral("最小化"));
-    this->_max->setToolTip(QStringLiteral("最大化"));
-    this->_restore->setToolTip(QStringLiteral("还原"));
-    this->_close->setToolTip(QStringLiteral("关闭"));
+    _min->setToolTip(QStringLiteral("最小化"));
+    _max->setToolTip(QStringLiteral("最大化"));
+    _restore->setToolTip(QStringLiteral("还原"));
+    _close->setToolTip(QStringLiteral("关闭"));
 
     QPalette pe;
     pe.setColor(QPalette::WindowText,Qt::white);
-    this->_title->setPalette(pe);
+    _title->setPalette(pe);
 
-    this->_restore->setVisible(false);
+    _restore->setVisible(false);
 
-    this->_min->setIcon(this->style()->standardIcon(QStyle::SP_TitleBarMinButton));
-    this->_max->setIcon(this->style()->standardIcon(QStyle::SP_TitleBarMaxButton));
-    this->_restore->setIcon(this->style()->standardIcon(QStyle::SP_TitleBarNormalButton));
-    this->_close->setIcon(this->style()->standardIcon(QStyle::SP_TitleBarCloseButton));
+    _min->setIcon(style()->standardIcon(QStyle::SP_TitleBarMinButton));
+    _max->setIcon(style()->standardIcon(QStyle::SP_TitleBarMaxButton));
+    _restore->setIcon(style()->standardIcon(QStyle::SP_TitleBarNormalButton));
+    _close->setIcon(style()->standardIcon(QStyle::SP_TitleBarCloseButton));
 
     auto* title_layout = new QHBoxLayout(this);
-    title_layout->addWidget(this->_ico);
-    title_layout->addWidget(this->_menu);
-    title_layout->addWidget(this->_title);
+    title_layout->addWidget(_ico);
+    title_layout->addWidget(_menu);
+    title_layout->addWidget(_title);
 
     title_layout->addSpacing(180);
 
-    title_layout->addWidget(this->_min);
-    title_layout->addWidget(this->_max);
-    title_layout->addWidget(this->_restore);
-    title_layout->addWidget(this->_close);
+    title_layout->addWidget(_min);
+    title_layout->addWidget(_max);
+    title_layout->addWidget(_restore);
+    title_layout->addWidget(_close);
 
     title_layout->setContentsMargins(5, 0, 0, 0);
     title_layout->setSpacing(0);
 
-    this->_title->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    this->setFixedHeight(TITLE_HEIGHT);
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    _title->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    setFixedHeight(TITLE_HEIGHT);
+    setWindowFlags(Qt::FramelessWindowHint);
 }
 
 void NE_Title::init_menubar()
 {
-    auto filemenu = this->_menu->addMenu("&File(F)");
-    this->_newAction = new QAction("New File");
-    this->_newAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_N));
-    this->_newWindow = new QAction("New Window");
-    this->_newWindow->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
-    this->_openAction = new QAction("Open File");
-    this->_openAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_O));
-    this->_saveAction = new QAction("Save File");
-    this->_saveAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_S));
-    this->_exitAction = new QAction("Exit");
+    auto filemenu = _menu->addMenu("&File(F)");
+    _newAction = new QAction("New File");
+    _newAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_N));
+    _newWindow = new QAction("New Window");
+    _newWindow->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_N));
+    _openAction = new QAction("Open File");
+    _openAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_O));
+    _saveAction = new QAction("Save File");
+    _saveAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_S));
+    _exitAction = new QAction("Exit");
 
-    filemenu->addAction(this->_newAction);
-    filemenu->addAction(this->_newWindow);
+    filemenu->addAction(_newAction);
+    filemenu->addAction(_newWindow);
     filemenu->addSeparator();
-    filemenu->addAction(this->_openAction);
+    filemenu->addAction(_openAction);
     filemenu->addSeparator();
-    filemenu->addAction(this->_saveAction);
+    filemenu->addAction(_saveAction);
     filemenu->addSeparator();
-    filemenu->addAction(this->_exitAction);
+    filemenu->addAction(_exitAction);
 
-    this->_copyAction = new QAction("Copy");
-    this->_copyAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_C));
-    this->_cutAction = new QAction("Cut");
-    this->_cutAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_X));
-    this->_pasteAction = new QAction("Paste");
-    this->_pasteAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_V));
-    this->_undoAction = new QAction("Undo");
-    this->_undoAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Z));
-    this->_redoAction = new QAction("Redo");
-    this->_redoAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Y));
-    this->_findAction = new QAction("Find");
-    this->_findAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_F));
-    this->_replaceAction = new QAction("Replace");
-    this->_replaceAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_H));
-    this->_retract = new QAction("Retract All");
-    this->_retract->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Tab));
-    this->_expand = new QAction("Expand All");
-    this->_expand->setShortcut(QKeySequence(Qt::SHIFT | Qt::Key_Tab));
+    _copyAction = new QAction("Copy");
+    _copyAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_C));
+    _cutAction = new QAction("Cut");
+    _cutAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_X));
+    _pasteAction = new QAction("Paste");
+    _pasteAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_V));
+    _undoAction = new QAction("Undo");
+    _undoAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Z));
+    _redoAction = new QAction("Redo");
+    _redoAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Y));
+    _findAction = new QAction("Find");
+    _findAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_F));
+    _replaceAction = new QAction("Replace");
+    _replaceAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_H));
+    _retract = new QAction("Retract All");
+    _retract->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_Tab));
+    _expand = new QAction("Expand All");
+    _expand->setShortcut(QKeySequence(Qt::SHIFT | Qt::Key_Tab));
 
-    auto editmenu = this->_menu->addMenu("&Edit(E)");
-    editmenu->addAction(this->_undoAction);
-    editmenu->addAction(this->_redoAction);
+    auto editmenu = _menu->addMenu("&Edit(E)");
+    editmenu->addAction(_undoAction);
+    editmenu->addAction(_redoAction);
     editmenu->addSeparator();
-    editmenu->addAction(this->_copyAction);
-    editmenu->addAction(this->_cutAction);
-    editmenu->addAction(this->_pasteAction);
+    editmenu->addAction(_copyAction);
+    editmenu->addAction(_cutAction);
+    editmenu->addAction(_pasteAction);
     editmenu->addSeparator();
-    editmenu->addAction(this->_findAction);
-    editmenu->addAction(this->_replaceAction);
+    editmenu->addAction(_findAction);
+    editmenu->addAction(_replaceAction);
     editmenu->addSeparator();
-    editmenu->addAction(this->_retract);
-    editmenu->addAction(this->_expand);
+    editmenu->addAction(_retract);
+    editmenu->addAction(_expand);
 
-    this->_selectAll = new QAction("Select All");
-    this->_selectAll->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_A));
-    this->_duplicate = new QAction("Duplicate");
-    this->_duplicate->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_D));
+    _selectAll = new QAction("Select All");
+    _selectAll->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_A));
+    _duplicate = new QAction("Duplicate");
+    _duplicate->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_D));
 
-    auto selectionmenu = this->_menu->addMenu("&Selection(S)");
-    selectionmenu->addAction(this->_selectAll);
+    auto selectionmenu = _menu->addMenu("&Selection(S)");
+    selectionmenu->addAction(_selectAll);
     selectionmenu->addSeparator();
-    selectionmenu->addAction(this->_duplicate);
+    selectionmenu->addAction(_duplicate);
 
-    this->_storescale = new QAction("Store Current Scale");
-    this->_storescale->setShortcut(QKeySequence(Qt::SHIFT | Qt::Key_S));
-    this->_resetscale = new QAction("Reset Scale by Stored Value");
-    this->_resetscale->setShortcut(QKeySequence(Qt::SHIFT | Qt::Key_R));
-    this->_view_25 = new QAction("25%");
-    this->_view_50 = new QAction("50%");
-    this->_view_75 = new QAction("75%");
-    this->_view_100 = new QAction("100%");
-    this->_view_300 = new QAction("300%");
-    this->_view_500 = new QAction("500%");
-    this->_style_switch = new QAction("Switch Canvas Style");
-    this->_style_switch->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_QuoteLeft));
+    _storescale = new QAction("Store Current Scale");
+    _storescale->setShortcut(QKeySequence(Qt::SHIFT | Qt::Key_S));
+    _resetscale = new QAction("Reset Scale by Stored Value");
+    _resetscale->setShortcut(QKeySequence(Qt::SHIFT | Qt::Key_R));
+    _view_25 = new QAction("25%");
+    _view_50 = new QAction("50%");
+    _view_75 = new QAction("75%");
+    _view_100 = new QAction("100%");
+    _view_300 = new QAction("300%");
+    _view_500 = new QAction("500%");
+    _style_switch = new QAction("Switch Canvas Style");
+    _style_switch->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_QuoteLeft));
 
-    auto viewmenu = this->_menu->addMenu("&View(V)");
-    viewmenu->addAction(this->_storescale);
-    viewmenu->addAction(this->_resetscale);
+    auto viewmenu = _menu->addMenu("&View(V)");
+    viewmenu->addAction(_storescale);
+    viewmenu->addAction(_resetscale);
     viewmenu->addSeparator();
-    viewmenu->addAction(this->_view_25);
-    viewmenu->addAction(this->_view_50);
-    viewmenu->addAction(this->_view_75);
-    viewmenu->addAction(this->_view_100);
-    viewmenu->addAction(this->_view_300);
-    viewmenu->addAction(this->_view_500);
+    viewmenu->addAction(_view_25);
+    viewmenu->addAction(_view_50);
+    viewmenu->addAction(_view_75);
+    viewmenu->addAction(_view_100);
+    viewmenu->addAction(_view_300);
+    viewmenu->addAction(_view_500);
     viewmenu->addSeparator();
-    viewmenu->addAction(this->_style_switch);
+    viewmenu->addAction(_style_switch);
 
-    this->_run = new QAction("Run");
-    this->_run->setShortcut(QKeySequence(Qt::Key_F5));
+    _run = new QAction("Run");
+    _run->setShortcut(QKeySequence(Qt::Key_F5));
 
-    auto runmenu = this->_menu->addMenu("&Run(R)");
-    runmenu->addAction(this->_run);
+    auto runmenu = _menu->addMenu("&Run(R)");
+    runmenu->addAction(_run);
 
-    this->_newterminal = new QAction("New Terminal");
-    this->_newterminal->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F1));
+    _newterminal = new QAction("New Terminal");
+    _newterminal->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_F1));
 
-    auto terminal = this->_menu->addMenu("&Terminal(T)");
-    terminal->addAction(this->_newterminal);
+    auto terminal = _menu->addMenu("&Terminal(T)");
+    terminal->addAction(_newterminal);
 
-    this->_document = new QAction("Document");
+    _document = new QAction("Document");
 
-    auto helpmenu = this->_menu->addMenu("&Help(H)");
-    helpmenu->addAction(this->_document);
+    auto helpmenu = _menu->addMenu("&Help(H)");
+    helpmenu->addAction(_document);
 
 }
 
 double NE_Title::getStoredscale() const
 {
-    return this->_store_scale;
+    return _store_scale;
 }
 
 void NE_Title::setStoredscale(double scale)
 {
-    this->_store_scale = scale;
+    _store_scale = scale;
 }
 
 void NE_Title::init_control()
 {
-    connect(this->_min, &QPushButton::clicked, this, [this](){emit signalButtonMinClicked();}, Qt::DirectConnection);
-    connect(this->_max, &QPushButton::clicked, this,[this](){this->onButtonMaxClicked();}, Qt::DirectConnection);
-    connect(this->_restore, &QPushButton::clicked, this,[this](){this->onButtonRestoreClicked();}, Qt::DirectConnection);
-    connect(this->_close, &QPushButton::clicked, this, [this](){emit signalButtonCloseClicked();}, Qt::DirectConnection);
+    connect(_min, &QPushButton::clicked, this, [this](){emit signalButtonMinClicked();}, Qt::DirectConnection);
+    connect(_max, &QPushButton::clicked, this,[this](){onButtonMaxClicked();}, Qt::DirectConnection);
+    connect(_restore, &QPushButton::clicked, this,[this](){onButtonRestoreClicked();}, Qt::DirectConnection);
+    connect(_close, &QPushButton::clicked, this, [this](){emit signalButtonCloseClicked();}, Qt::DirectConnection);
 
-    connect(this->_storescale, &QAction::triggered, this, [this](){emit signalStoreScale();}, Qt::DirectConnection);
-    connect(this->_resetscale, &QAction::triggered, this, [this](){emit signalResetScale();}, Qt::DirectConnection);
-    connect(this->_view_25, &QAction::triggered, this, [this](){emit signal25Scale();}, Qt::DirectConnection);
-    connect(this->_view_50, &QAction::triggered, this, [this](){emit signal50Scale();}, Qt::DirectConnection);
-    connect(this->_view_75, &QAction::triggered, this, [this](){emit signal75Scale();}, Qt::DirectConnection);
-    connect(this->_view_100, &QAction::triggered, this, [this](){emit signal100Scale();}, Qt::DirectConnection);
-    connect(this->_view_300, &QAction::triggered, this, [this](){emit signal300Scale();}, Qt::DirectConnection);
-    connect(this->_view_500, &QAction::triggered, this, [this](){emit signal500Scale();}, Qt::DirectConnection);
-    connect(this->_style_switch, &QAction::triggered, this, [this](){emit signalSwichStyle();}, Qt::DirectConnection);
+    connect(_storescale, &QAction::triggered, this, [this](){emit signalStoreScale();}, Qt::DirectConnection);
+    connect(_resetscale, &QAction::triggered, this, [this](){emit signalResetScale();}, Qt::DirectConnection);
+    connect(_view_25, &QAction::triggered, this, [this](){emit signal25Scale();}, Qt::DirectConnection);
+    connect(_view_50, &QAction::triggered, this, [this](){emit signal50Scale();}, Qt::DirectConnection);
+    connect(_view_75, &QAction::triggered, this, [this](){emit signal75Scale();}, Qt::DirectConnection);
+    connect(_view_100, &QAction::triggered, this, [this](){emit signal100Scale();}, Qt::DirectConnection);
+    connect(_view_300, &QAction::triggered, this, [this](){emit signal300Scale();}, Qt::DirectConnection);
+    connect(_view_500, &QAction::triggered, this, [this](){emit signal500Scale();}, Qt::DirectConnection);
+    connect(_style_switch, &QAction::triggered, this, [this](){emit signalSwichStyle();}, Qt::DirectConnection);
 
 }
 
 void NE_Title::init_title_bar()
 {
-    this->set_icon(":/resource/icons/NE.png");
-    this->set_titleContent(QString("Node Engine"));
-    this->set_buttonType(MIN_BUTTON);
-    this->set_titleWidth(this->width());
+    set_icon(":/resource/icons/NE.png");
+    set_titleContent(QString("Node Engine"));
+    set_buttonType(MIN_BUTTON);
+    set_titleWidth(width());
 }
 
 void NE_Title::set_background_color(int R, int G, int B)
 {
-    this->_bcolor_R = R;
-    this->_bcolor_G = G;
-    this->_bcolor_B = B;
+    _bcolor_R = R;
+    _bcolor_G = G;
+    _bcolor_B = B;
     update();
 }
 
 void NE_Title::set_icon(const QString& path, QSize Iconsize)
 {
     QPixmap titleicon(path);
-    this->_ico->setPixmap(titleicon.scaled(Iconsize));
+    _ico->setPixmap(titleicon.scaled(Iconsize));
 }
 
 void NE_Title::set_titleContent(const QString& text, int titlesize)
 {
-    QFont font = this->_title->font();
+    QFont font = _title->font();
     font.setPointSize(titlesize);
-    this->_title->setFont(font);
-    this->_title->setText(text);
-    this->_title_content = text;
-    this->_title->setAlignment(Qt::AlignLeft);
-//    this->_title->setStyleSheet("QLabel{padding-left:220px;}");
+    _title->setFont(font);
+    _title->setText(text);
+    _title_content = text;
+    _title->setAlignment(Qt::AlignLeft);
+//    _title->setStyleSheet("QLabel{padding-left:220px;}");
 }
 
 void NE_Title::set_titleWidth(int width)
 {
-    this->setFixedWidth(width);
+    setFixedWidth(width);
 }
 
 void NE_Title::set_buttonType(ButtonType type)
 {
-    this->_button_Type = type;
+    _button_Type = type;
 
     switch(type)
     {
         case MIN_BUTTON:
         {
-            this->_restore->setVisible(false);
-            this->_max->setVisible(false);
+            _restore->setVisible(false);
+            _max->setVisible(false);
         }
             break;
         case MIN_MAX_BUTTON:
         {
-            this->_restore->setVisible(false);
+            _restore->setVisible(false);
         }
             break;
         case ONLY_CLOSE_BUTTON:
         {
-            this->_min->setVisible(false);
-            this->_max->setVisible(false);
-            this->_restore->setVisible(false);
+            _min->setVisible(false);
+            _max->setVisible(false);
+            _restore->setVisible(false);
         }
             break;
         default:
@@ -277,7 +277,7 @@ void NE_Title::set_buttonType(ButtonType type)
 
 void NE_Title::set_windowBorderWidth(int width)
 {
-    this->_window_border_width = width;
+    _window_border_width = width;
 }
 
 void NE_Title::paintEvent(QPaintEvent *event)
@@ -285,14 +285,14 @@ void NE_Title::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     QPainterPath pathback;
     pathback.setFillRule(Qt::WindingFill);
-    pathback.addRoundedRect(QRect(0,0,this->width(),this->height()),0,0);
+    pathback.addRoundedRect(QRect(0,0,width(),height()),0,0);
     painter.setRenderHint(QPainter::Antialiasing, true);
-    painter.fillPath(pathback,QBrush(QColor(this->_bcolor_R,
-                                            this->_bcolor_G,
-                                            this->_bcolor_B)));
-    if (this->width() != (this->parentWidget()->width() - this->_borderwidth))
+    painter.fillPath(pathback,QBrush(QColor(_bcolor_R,
+                                            _bcolor_G,
+                                            _bcolor_B)));
+    if (width() != (parentWidget()->width() - _borderwidth))
     {
-        this->setFixedWidth(this->parentWidget()->width() - this->_borderwidth);
+        setFixedWidth(parentWidget()->width() - _borderwidth);
     }
     QWidget::paintEvent(event);
 }
@@ -305,15 +305,15 @@ void NE_Title::loadStyleSheet(const QString &sheetName)
     {
         QString styleSheet = this->styleSheet();
         styleSheet += QLatin1String(file.readAll());
-        this->setStyleSheet(styleSheet);
+        setStyleSheet(styleSheet);
     }
 }
 
 void NE_Title::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    if(this->_button_Type == MIN_MAX_BUTTON)
+    if(_button_Type == MIN_MAX_BUTTON)
     {
-        if(this->_max->isVisible())
+        if(_max->isVisible())
             onButtonMaxClicked();
         else
             onButtonRestoreClicked();
@@ -323,28 +323,28 @@ void NE_Title::mouseDoubleClickEvent(QMouseEvent *event)
 
 void NE_Title::mousePressEvent(QMouseEvent *event)
 {
-    if(this->_button_Type == MIN_MAX_BUTTON &&
-       this->_max->isVisible())
+    if(_button_Type == MIN_MAX_BUTTON &&
+       _max->isVisible())
     {
-        this->_isPressed = true;
-        this->_mouseStartPos = event->globalPosition();
+        _isPressed = true;
+        _mouseStartPos = event->globalPosition();
     }
     else
     {
-//        this->_isPressed = true;
-//        this->_mouseStartPos = event->globalPosition();
+//        _isPressed = true;
+//        _mouseStartPos = event->globalPosition();
     }
     return QWidget::mousePressEvent(event);
 }
 
 void NE_Title::mouseMoveEvent(QMouseEvent *event)
 {
-    if(this->_isPressed)
+    if(_isPressed)
     {
-        QPointF movepoint = event->globalPosition() - this->_mouseStartPos;
-        QPointF widgetPos = this->parentWidget()->pos();
-        this->_mouseStartPos = event->globalPosition();
-        this->parentWidget()->move(static_cast<int>(widgetPos.x()+movepoint.x()),
+        QPointF movepoint = event->globalPosition() - _mouseStartPos;
+        QPointF widgetPos = parentWidget()->pos();
+        _mouseStartPos = event->globalPosition();
+        parentWidget()->move(static_cast<int>(widgetPos.x()+movepoint.x()),
                                    static_cast<int>(widgetPos.y()+movepoint.y()));
     }
     return QWidget::mouseMoveEvent(event);
@@ -352,20 +352,20 @@ void NE_Title::mouseMoveEvent(QMouseEvent *event)
 
 void NE_Title::mouseReleaseEvent(QMouseEvent *event)
 {
-    this->_isPressed = false;
+    _isPressed = false;
     return QWidget::mouseReleaseEvent(event);
 }
 
 void NE_Title::onButtonMaxClicked()
 {
-    this->_max->setVisible(false);
-    this->_restore->setVisible(true);
+    _max->setVisible(false);
+    _restore->setVisible(true);
     emit signalButtonMaxClicked();
 }
 
 void NE_Title::onButtonRestoreClicked()
 {
-    this->_restore->setVisible(false);
-    this->_max->setVisible(true);
+    _restore->setVisible(false);
+    _max->setVisible(true);
     emit signalButtonRestoreClicked();
 }

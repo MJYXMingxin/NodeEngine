@@ -24,6 +24,8 @@ public:
     explicit NE_Port_Basic(QString port_label = "",
                   Class port_class = String,
                   Port_Type type = PORT_EXEC_IN,
+                  bool is_autoport = false,
+                  QVector<Class> canAutoTransClasses = {},
                   QGraphicsItem *parent = nullptr);
 
     [[nodiscard]] QRectF boundingRect() const override;
@@ -34,7 +36,7 @@ public:
 
     void add_edge(NE_Line_Basic *line, NE_Port_Basic *port);
 
-    bool is_connect();
+    [[maybe_unused]] bool is_connect();
 
     void conditioned_remove_edge();
 
@@ -44,57 +46,45 @@ public:
 
     static QColor LoadColor(Class pclass);
 
-    void focus()
+    bool AutoTransform(Class newclass)
     {
-        this->_is_focused = true;
-        this->update();
+        if(_canAutoTransClasses.contains(newclass))
+        {
+            _port_class = newclass;
+            _port_color = LoadColor(newclass);
+
+            _pen_default = QPen(_port_color);
+            _pen_default.setWidthF(1.5);
+            _brush_default = QBrush(_port_color);
+            update();
+            return true;
+        }
+        return false;
     }
 
-    void disfocus()
-    {
-        this->_is_focused = false;
-        this->update();
-    }
+    [[nodiscard]] bool isAutoTransform() const { return _is_autoport; }
 
-    bool is_connected()
-    {
-        return !this->_edges.empty();
-    }
+    [[nodiscard]] QVector<Class> CanAutoTransClasses() const { return _canAutoTransClasses; }
 
-    [[nodiscard]] int PortIcoSize() const
-    {
-        return this->_port_ico_size;
-    }
+    void focus() { _is_focused = true; update(); }
 
-    [[nodiscard]] int PortWidth() const
-    {
-        return this->_port_width;
-    }
+    void disfocus() { _is_focused = false; update(); }
 
-    Port_Type PortType()
-    {
-        return this->_port_type;
-    }
+    bool is_connected() { return !_edges.empty(); }
 
-    QColor PortColor()
-    {
-        return this->_port_color;
-    }
+    [[nodiscard]] int PortIcoSize() const { return _port_ico_size; }
 
-    Class PortClass()
-    {
-        return this->_port_class;
-    }
+    [[nodiscard]] int PortWidth() const { return _port_width; }
 
-    NE_Node_Basic *ParentItem()
-    {
-        return this->_parent_item;
-    }
+    Port_Type PortType() { return _port_type; }
 
-    void setScene(NE_Scene *scene)
-    {
-        this->_scene = scene;
-    }
+    QColor PortColor() { return _port_color; }
+
+    Class PortClass() { return _port_class; }
+
+    NE_Node_Basic *ParentItem() { return _parent_item; }
+
+    void setScene(NE_Scene *scene) { _scene = scene; }
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
@@ -102,6 +92,7 @@ protected:
     QString _port_label;
     Port_Type _port_type;
     Class _port_class;
+    Class _original_class;
 
     bool _is_focused = false;
     QGraphicsDropShadowEffect *_shadow;
@@ -121,6 +112,9 @@ protected:
     NE_Scene *_scene;
     QPointF _port_pos;
 
+    bool _is_autoport;
+    QVector<Class> _canAutoTransClasses;
+
     QVector<NE_Port_Basic*> _connected_ports = {};
     QVector<NE_Line_Basic*> _edges = {};
 };
@@ -132,7 +126,7 @@ public:
              Class port_class = String,
              Port_Type type = PORT_EXEC_IN,
              QGraphicsItem *parent = nullptr);
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+//    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 };
 
 class EXECInPort : public EXECport
@@ -167,6 +161,8 @@ class PARAM_IN_Port : public NE_Port_Basic
 public:
     explicit PARAM_IN_Port(QString port_label = "",
                            Class port_class = String,
+                           bool is_Auto = false,
+                           QVector<Class> canAutoTransClasses = {},
                            Port_Type type = PORT_PARAM_IN,
                            QGraphicsItem *parent = nullptr);
 
@@ -178,6 +174,8 @@ class PARAM_OUT_Port : public NE_Port_Basic
 public:
     explicit PARAM_OUT_Port(QString port_label = "",
                             Class port_class = String,
+                            bool is_Auto = false,
+                            QVector<Class> canAutoTransClasses = {},
                             Port_Type type = PORT_PARAM_OUT,
                             QGraphicsItem *parent = nullptr);
 
@@ -185,24 +183,50 @@ public:
     QPointF get_port_pos() override;
 };
 
+class NE_Val
+{
+private:
+    void* value;
+public:
+    NE_Val() : value(nullptr) {}
+    template<typename T>
+    void set(T* val) { value = static_cast<void*>(val); }
+    template<typename T>
+    T* get() { return static_cast<T*>(value); }
+    void clear() { value = nullptr; }
+};
+
 class NE_Pin
 {
 public:
     explicit NE_Pin(QString pin_name = "",
                     Class pin_class = Exec,
-                    QString pin_type = "exec");
-    virtual void init_port();
-    NE_Port_Basic *Port()
-    {
-        return this->port;
-    }
+                    QString pin_type = "exec",
+                    bool isAuto = false,
+                    const QVector<Class> &canAutoTransClasses = {});
+    virtual void init_port(bool is_autoport);
+    NE_Port_Basic *Port() { return port; }
+    Class PinClass() { return _pin_class; }
+    void RenewClass() { _pin_class = port->PortClass(); }
+    template<typename T>
+    void setVal(T val) { _val.set(val); _has_set_val = true; }
+    template<typename T>
+    T* getVal() { return _val.get<T>(); }
+    void clearVal() { _val.clear(); }
+    void newsession(int session) {_cur_session = session;_has_set_val = false;}
 protected:
-    void initialize();
+    void initialize(bool is_autoport = false);
 protected:
     QString _pin_name;
     Class _pin_class;
     QString _pin_type;
     NE_Port_Basic *port;
+    QVector<Class> _canAutoTransClasses;
+
+    NE_Val _val;
+
+    int _cur_session;
+    bool _has_set_val;
 };
 
 class NE_NodeInput : public NE_Pin
@@ -210,8 +234,10 @@ class NE_NodeInput : public NE_Pin
 public:
     explicit NE_NodeInput(QString pin_name = "",
                           Class pin_class = Exec,
-                          QString pin_type = "exec");
-    void init_port() override;
+                          QString pin_type = "exec",
+                          bool isAuto = false,
+                          const QVector<Class> &canAutoTransClasses = {});
+    void init_port(bool is_autoport) override;
 };
 
 class NE_NodeOutput : public NE_Pin
@@ -219,8 +245,10 @@ class NE_NodeOutput : public NE_Pin
 public:
     explicit NE_NodeOutput(QString pin_name = "",
                            Class pin_class = Exec,
-                           QString pin_type = "exec");
-    void init_port() override;
+                           QString pin_type = "exec",
+                           bool isAuto = false,
+                           const QVector<Class> &canAutoTransClasses = {});
+    void init_port(bool is_autoport) override;
 };
 
 #endif // NE_PORT_BASIC_H
