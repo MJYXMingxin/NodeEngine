@@ -3,5 +3,6 @@
     <qresource prefix="/resource/styles">
         <file>NE_View.qss</file>
         <file>TitleBar.qss</file>
+        <file>NodeList.qss</file>
     </qresource>
 </RCC>

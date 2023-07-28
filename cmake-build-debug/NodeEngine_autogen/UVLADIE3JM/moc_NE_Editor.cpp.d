@@ -469,6 +469,7 @@ D:/VSCode_codes/Qt/NodeEngine/cmake-build-debug/NodeEngine_autogen/UVLADIE3JM/mo
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QMargins \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QMutex \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF \
@@ -838,16 +839,20 @@ D:/VSCode_codes/Qt/NodeEngine/cmake-build-debug/NodeEngine_autogen/UVLADIE3JM/mo
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QApplication \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsScene \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsSceneDragDropEvent \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsView \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QHBoxLayout \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QLabel \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QLineEdit \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QMainWindow \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QMenuBar \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QMessageBox \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QPushButton \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QSizePolicy \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QStatusBar \
@@ -855,27 +860,37 @@ D:/VSCode_codes/Qt/NodeEngine/cmake-build-debug/NodeEngine_autogen/UVLADIE3JM/mo
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QStyleOptionGraphicsItem \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QSystemTrayIcon \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QTextEdit \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QTreeWidget \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QTreeWidgetItem \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QWidget \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qabstractbutton.h \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qabstractitemdelegate.h \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qabstractitemview.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qabstractscrollarea.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qabstractslider.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qabstractspinbox.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qapplication.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qboxlayout.h \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qdialog.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qdockwidget.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qframe.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicseffect.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicsitem.h \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicslayoutitem.h \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicsproxywidget.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicsscene.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicssceneevent.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicsview.h \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicswidget.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgridlayout.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qlabel.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qlayout.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qlayoutitem.h \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qlineedit.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qmainwindow.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qmenu.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qmenubar.h \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qmessagebox.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qpushbutton.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qrubberband.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qscrollarea.h \
@@ -888,6 +903,9 @@ D:/VSCode_codes/Qt/NodeEngine/cmake-build-debug/NodeEngine_autogen/UVLADIE3JM/mo
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtabbar.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtabwidget.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtextedit.h \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtreeview.h \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtreewidget.h \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtreewidgetitemiterator.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtwidgets-config.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtwidgetsexports.h \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -899,5 +917,6 @@ D:/VSCode_codes/Qt/NodeEngine/cmake-build-debug/NodeEngine_autogen/UVLADIE3JM/mo
   D:/VSCode_codes/Qt/NodeEngine/src/NE_Scene.h \
   D:/VSCode_codes/Qt/NodeEngine/src/NE_Title.h \
   D:/VSCode_codes/Qt/NodeEngine/src/NE_View.h \
+  D:/VSCode_codes/Qt/NodeEngine/src/NE_Widgets.h \
   D:/VSCode_codes/Qt/NodeEngine/src/config.h \
   D:/VSCode_codes/Qt/NodeEngine/src/pch.h

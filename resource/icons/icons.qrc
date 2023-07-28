@@ -2,5 +2,7 @@
 <RCC>
     <qresource prefix="/resource/icons">
         <file>NE.png</file>
+        <file>tree-close-white.png</file>
+        <file>tree-open-white.png</file>
     </qresource>
 </RCC>

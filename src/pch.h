@@ -7,6 +7,9 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsPathItem>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QGraphicsProxyWidget>
 
 #include <QRectF>
 #include <QPen>
@@ -53,6 +56,10 @@
 #include <QKeySequence>
 #include <QMap>
 #include <QDir>
+#include <QPluginLoader>
+#include <QMessageBox>
+#include <QLineEdit>
+#include <QFrame>
 //#include <QtOpenGLWidgets/QOpenGLWidget>
 #include <QDebug>
 
@@ -62,6 +69,8 @@
 #include "NE_Editor.h"
 #include "NE_View.h"
 #include "NE_Scene.h"
+
+#include "NE_Widgets.h"
 
 #include "NE_Node_Basic.h"
 #include "NE_Port_Basic.h"

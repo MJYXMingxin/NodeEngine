@@ -1,17 +1,20 @@
 #include "NE_View.h"
+#include "nodes/interfaces/NodeLibraryPluginInterface.h"
 
 NE_View::NE_View(QWidget* parent, NE_Scene* scene)
         :QGraphicsView{parent},
         _config(),
-        _zoom_clamp(1.1)
+        _zoom_clamp(1.1),
+        _scene(scene),
+        _cutting_line(new NE_Cutting_Line),
+        _nodelist(),
+        _pluginList(),
+        _data({})
 {
 //    setViewport(new QOpenGLWidget);
     getConfig();
-    _scene = scene;
     setScene(_scene);
     _scene->setView(this);
-
-    _cutting_line = new NE_Cutting_Line();
     _scene->addItem(_cutting_line);
 
     setMouseTracking(true);
@@ -22,7 +25,7 @@ NE_View::NE_View(QWidget* parent, NE_Scene* scene)
                          QPainter::LosslessImageRendering);
 
     setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
-//    setCacheMode(QGraphicsView::CacheBackground);
+    setCacheMode(QGraphicsView::CacheBackground);
 
     setOptimizationFlag(QGraphicsView::DontAdjustForAntialiasing, true);
     setOptimizationFlag(QGraphicsView::DontSavePainterState, true);
@@ -47,8 +50,16 @@ NE_View::NE_View(QWidget* parent, NE_Scene* scene)
     setPalette(palette);
 
     setStyleSheetbyQss();
-}
 
+    LoadPlugins();
+    setup_node_list_widget();
+}
+NE_View::~NE_View()
+{
+    if(loader.isLoaded()){
+        loader.unload();
+    }
+}
 
 double NE_View::getScale() const { return _view_scale; }
 
@@ -99,6 +110,7 @@ void NE_View::LeftButtonPressed(QMouseEvent *event)
     //    if(typeid(*item) == typeid(Port))
     if(item==nullptr)
     {
+        hidden_nodelist();
         setDragMode(QGraphicsView::RubberBandDrag);
         if(event->modifiers() == Qt::ControlModifier)
         {
@@ -106,6 +118,7 @@ void NE_View::LeftButtonPressed(QMouseEvent *event)
             QApplication::setOverrideCursor(Qt::CrossCursor);
         }
     }
+
     if(it != nullptr)
     {
 //        auto *it = dynamic_cast<NE_Port_Basic*>(item);
@@ -159,8 +172,10 @@ void NE_View::LeftButtonReleased(QMouseEvent *event)
 
 void NE_View::RightButtonPressed(QMouseEvent *event)
 {
+    hidden_nodelist();
     setDragMode(QGraphicsView::NoDrag);
     _presstime_r = QTime::currentTime();
+    _presspos_r = QCursor::pos();
     if(itemAt(event->pos()) != nullptr)
         return;
     else
@@ -189,23 +204,29 @@ void NE_View::RightButtonPressed(QMouseEvent *event)
 void NE_View::RightButtonReleased(QMouseEvent *event)
 {
     int elapsed = _presstime_r.msecsTo(QTime::currentTime());
-    if(elapsed < 100)//单击
-    {
-        //Click
+    QPointF curpos = QCursor::pos();
+    QLineF mouseOffset(_presspos_r, curpos);
+    if(itemAt(event->pos()) == nullptr) {
+        if (mouseOffset.length() < 3)//鼠标未偏移
+        {
+            show_nodelist_at_pos(mapToScene(mapFromGlobal(QCursor::pos())));
+        }
+        if (elapsed < 300)//单击Click
+        {
+
+        } else//长按LongPress
+        {
+        }
+        _is_drag = false;
+        auto release_event = new QMouseEvent(QEvent::MouseButtonRelease,
+                                             event->position(),
+                                             event->globalPosition(),
+                                             Qt::LeftButton,
+                                             Qt::NoButton,
+                                             event->modifiers());
+        QGraphicsView::mouseReleaseEvent(release_event);
+        setDragMode(QGraphicsView::NoDrag);
     }
-    else//长按
-    {
-        //LongPress
-    }
-    _is_drag = false;
-    auto release_event = new QMouseEvent(QEvent::MouseButtonRelease,
-                                         event->position(),
-                                         event->globalPosition(),
-                                         Qt::LeftButton,
-                                         Qt::NoButton,
-                                         event->modifiers());
-    QGraphicsView::mouseReleaseEvent(release_event);
-    setDragMode(QGraphicsView::NoDrag);
 }
 
 void NE_View::wheelEvent(QWheelEvent *event)
@@ -360,6 +381,95 @@ void NE_View::create_dragging_edge(NE_Port_Basic *port)
         _drag_edge = new NE_Drag_Line(nullptr,drag_from_source,port_pos,port_pos,port->PortColor(),_scene);
         _drag_edge->add_first_port(port);
         _scene->addItem(_drag_edge);
+    }
+}
+
+void NE_View::LoadPlugins() {
+    QDir dir("../plugins");
+    _pluginList << "*.dll";
+
+    QStringList fileList = dir.entryList(_pluginList, QDir::Files);
+    qDebug()<<"Loading Plugins at:"<<dir.absolutePath().toStdString().c_str();
+    foreach (QString file, fileList) {
+        qDebug() << "Try Loading:" << file.toStdString().c_str();
+        loader.setFileName(dir.filePath(file));
+        if(!loader.load()){
+            qDebug() << file << "load failed! Reason:" << loader.errorString().toStdString().c_str();
+            break;
+        }
+
+        NodeLibraryPluginInterface *pi = qobject_cast<NodeLibraryPluginInterface *>(loader.instance());
+        if(pi) {
+            auto libs = pi->GetLibraryMap();
+            for (auto it = libs.begin(); it != libs.end(); ++it) {
+                QStringList nodes = it.value().keys();
+                _data.insert({{it.key(), nodes}});
+            }
+            _libs.insert(file, _data);
+            qDebug() << file << "loaded successfully";
+        }
+        else
+            qDebug() << file << "load failed! Reason: It's not NodeEngine's Plugin";
+        loader.unload();
+    }
+}
+
+void NE_View::setup_node_list_widget()
+{
+    _nodelist = new NE_NodeList(_data);
+    QGraphicsProxyWidget *proxy = _scene->addWidget(_nodelist);
+    proxy->setZValue(std::numeric_limits<qreal>::max());
+    _nodelist->setGeometry(0, 0, 200, 300);
+    hidden_nodelist();
+    connect(_nodelist->tree, &NE_NodeListWidget::itemDoubleClicked, this, &NE_View::onItemDoubleClicked);
+}
+
+void NE_View::show_nodelist_at_pos(QPointF pos)
+{
+    _nodelist->setGeometry(static_cast<int>(pos.x()),
+                           static_cast<int>(pos.y()),
+                           200,300);
+    _nodelist->searchbox->setFocus();
+    _nodelist->show();
+}
+
+void NE_View::hidden_nodelist()
+{
+    _nodelist->clearSearchBar();
+    _nodelist->setVisible(false);
+}
+
+void NE_View::onItemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    Q_UNUSED(column)
+    if(!item->data(0, Qt::UserRole).value<QMap<QString,QString>>().empty())
+    {
+        createNode(item->data(0, Qt::UserRole).value<QMap<QString,QString>>().keys().first(),
+                   item->data(0, Qt::UserRole).value<QMap<QString,QString>>().values().first());
+    }
+}
+
+void NE_View::createNode(const QString& lib, const QString& name)
+{
+    for (auto i = _libs.begin(); i != _libs.end(); ++i) {
+        if(!i.value().value(lib).empty()) {
+            QStringList plugin(i.key());
+            QDir dir("../plugins");
+            QStringList fileList = dir.entryList(plugin, QDir::Files);
+            foreach (QString file, fileList) {
+                loader.setFileName(dir.filePath(file));
+                if(!loader.load()){
+                    qDebug() << file << "load failed! Reason:" << loader.errorString().toStdString().c_str();
+                    break;
+                }
+                NodeLibraryPluginInterface *pi = qobject_cast<NodeLibraryPluginInterface *>(loader.instance());
+                if (pi) {
+                    NE_Node *node = pi->CreateNodeByName(lib, name);
+                    addNode(node, _nodelist->pos().x(), _nodelist->pos().y());
+                    hidden_nodelist();
+                }
+            }
+        }
     }
 }
 

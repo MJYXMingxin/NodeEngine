@@ -9,15 +9,17 @@ class NE_Port_Basic;
 class NE_Line_Basic;
 class NE_Drag_Line;
 class NE_Cutting_Line;
+class NE_NodeList;
 
 class NE_View : public QGraphicsView
 {
 Q_OBJECT
 public:
     explicit NE_View(QWidget *parent = nullptr, NE_Scene *scene = nullptr);
+    ~NE_View();
     void getConfig();
     void setScale(double scale);
-    double getScale() const;
+    [[nodiscard]] double getScale() const;
     void LeftButtonPressed(QMouseEvent *event);
     void LeftButtonReleased(QMouseEvent *event);
     void RightButtonPressed(QMouseEvent *event);
@@ -35,9 +37,19 @@ public:
 
     void reset_scale();
 
+    void LoadPlugins();
+    void setup_node_list_widget();
+    void show_nodelist_at_pos(QPointF pos);
+    void hidden_nodelist();
+    void createNode(const QString& lib, const QString &name);
+
     [[maybe_unused]]NE_Scene *Scene();
     template <typename T>
     T clamp(T value,T min, T max);
+
+private slots:
+    void onItemDoubleClicked(QTreeWidgetItem* item, int column);
+
 protected:
     NE_Scene *_scene;
     QJsonObject _obj;
@@ -49,6 +61,7 @@ protected:
 
     bool _is_drag = false;
     QTime _presstime_r;
+    QPointF _presspos_r;
 
     QVector<NE_Node_Basic*> _nodes;
     QVector<NE_Line_Basic*> _edges;
@@ -57,6 +70,13 @@ protected:
     bool _drag_edge_mode = false;
     NE_Cutting_Line *_cutting_line;
     bool _cutting_line_mode = false;
+
+    QPluginLoader loader;
+    QMap<QString, QStringList> _data;
+    QMap<QString, QMap<QString, QStringList>> _libs;
+
+    QStringList _pluginList;
+    NE_NodeList *_nodelist;
 protected:
     void wheelEvent(QWheelEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;

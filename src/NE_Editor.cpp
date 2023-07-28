@@ -2,8 +2,9 @@
 //#include "./ui_ne_editor.h"
 
 #include "NE_Node_Basic.h"
-#include "nodes/LogicNodes/BranchNode.h"
-#include "nodes/MathNodes/BasicCalNode.h"
+#include "nodes/LogicLibrary.h"
+#include "nodes/BasicMathLibrary.h"
+#include "nodes/interfaces/NodeLibraryPluginInterface.h"
 
 NE_Editor::NE_Editor(QWidget *parent)
         : QMainWindow(parent),
@@ -16,6 +17,8 @@ NE_Editor::NE_Editor(QWidget *parent)
 {
 //    ui->setupUi(this);
     setup_editor();
+//    LoadPlugins();
+
 
 //    QDockWidget *dockWidget1 = new QDockWidget("DockWidget1",this);
 //    NE_ModelWidget *widget = new NE_ModelWidget(this);
@@ -129,6 +132,20 @@ void NE_Editor::set_eidtor_center(int width, int height)
     move((screenW - width) / 2, (screenH - height) / 2);
 }
 
+
+void NE_Editor::LoadPlugins()
+{
+    QDir dir("../lib");
+    QStringList filters;
+    filters << "*.dll";
+
+    QStringList fileList = dir.entryList(filters, QDir::Files);
+    qDebug()<<dir.path();
+    foreach (QString file, fileList) {
+        qDebug() << file;
+    }
+}
+
 [[maybe_unused]] NE_View *NE_Editor::getView()
 {
     return _view;
@@ -147,7 +164,7 @@ QPointF NE_Editor::map_mouse_to_scene()
 void NE_Editor::right_click_event(QPointF pos)
 {
 //    debugNode(pos);
-    debugcustomNode(pos);
+//    debugcustomNode(pos);
 }
 
 void NE_Editor::mousePressEvent(QMouseEvent *event)
@@ -228,11 +245,25 @@ void NE_Editor::debugNode(QPointF pos)
 
 void NE_Editor::debugcustomNode(QPointF pos)
 {
-    auto *node = new BranchNode();
+    QDir dir(qApp->applicationDirPath());
+    dir.cdUp();
+    dir.cd("lib");
+    loader.setFileName(dir.filePath("nativelib.dll"));
+    if(!loader.load()){
+        QMessageBox::critical(this,"",loader.errorString());
+    }
+    NodeLibraryPluginInterface *pi = qobject_cast<NodeLibraryPluginInterface*>(loader.instance());
+    if(pi){
+        auto *node = pi->CreateNodeByName("Add");
+        _view->addNode(node,
+                       static_cast<int>(pos.x()),
+                       static_cast<int>(pos.y()));
+    }
+
+//    auto *node = new LogicLibrary();
 //    auto *node = new AddNode();
 
-    _view->addNode(node,
-                   static_cast<int>(pos.x()),
-                   static_cast<int>(pos.y()));
+//    _view->addNode(node,
+//                   static_cast<int>(pos.x()),
+//                   static_cast<int>(pos.y()));
 }
-

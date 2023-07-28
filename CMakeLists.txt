@@ -19,7 +19,7 @@ find_package(OpenGL REQUIRED)
 find_package(assimp REQUIRED)
 
 set(EXE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
-set(DLL_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
+set(DLL_OUTPUT_PATH "${CMAKE_BINARY_DIR}/plugins")
 
 set(RESOURCE_FILES
         resource/icons/icons.qrc
@@ -47,22 +47,22 @@ set(PROJECT_SOURCES
         src/NE_Port_Basic.h
         src/NE_Line_Basic.cpp
         src/NE_Line_Basic.h
-        src/nodes/LogicNodes/BranchNode.cpp
-        src/nodes/LogicNodes/BranchNode.h
-        src/nodes/MathNodes/BasicCalNode.cpp
-        src/nodes/MathNodes/BasicCalNode.h
-        src/nodes/NodeLibraryPluginInterface.h
-        src/nodes/LogicNodes/LogicNodesLibrary.cpp
-        src/nodes/LogicNodes/LogicNodesLibrary.h)
+        src/nodes/LogicLibrary.cpp
+        src/nodes/LogicLibrary.h
+        src/nodes/BasicMathLibrary.cpp
+        src/nodes/BasicMathLibrary.h
+        src/nodes/interfaces/NodeLibraryPluginInterface.h
+        src/nodes/interfaces/NodeLibraryPlugin.cpp
+        src/nodes/interfaces/NodeLibraryPlugin.h src/NE_Widgets.cpp src/NE_Widgets.h)
 
 set(PRECOMPILED_HEADER pch.h)
-add_library(Logic SHARED ${PROJECT_SOURCES})
-set_target_properties(Logic PROPERTIES
-        ARCHIVE_OUTPUT_DIRECTORY "${DLL_OUTPUT_PATH}"
+add_library(nativelib SHARED ${PROJECT_SOURCES})
+set_target_properties(nativelib PROPERTIES
         LIBRARY_OUTPUT_DIRECTORY "${DLL_OUTPUT_PATH}"
         RUNTIME_OUTPUT_DIRECTORY "${DLL_OUTPUT_PATH}"
+        ARCHIVE_OUTPUT_DIRECTORY ""
         PREFIX "")
-target_link_libraries(Logic
+target_link_libraries(nativelib
         Qt::Core
         Qt::Gui
         Qt::Widgets
@@ -70,9 +70,9 @@ target_link_libraries(Logic
 
 add_executable(NodeEngine ${PROJECT_SOURCES} ${QT_RESOURCES})
 set_target_properties(NodeEngine PROPERTIES
-        ARCHIVE_OUTPUT_DIRECTORY "${EXE_OUTPUT_PATH}"
         LIBRARY_OUTPUT_DIRECTORY "${EXE_OUTPUT_PATH}"
         RUNTIME_OUTPUT_DIRECTORY "${EXE_OUTPUT_PATH}"
+        ARCHIVE_OUTPUT_DIRECTORY ""
         PREFIX "")
 
 target_link_libraries(NodeEngine

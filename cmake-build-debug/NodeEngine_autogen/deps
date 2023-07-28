@@ -1,24 +1,99 @@
 NodeEngine_autogen/timestamp: \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCCompiler.cmake.in \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCCompilerABI.c \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCInformation.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCXXCompiler.cmake.in \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCXXCompilerABI.cpp \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCXXInformation.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeCompilerIdDetection.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeDetermineCCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeDetermineCXXCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeDetermineCompileFeatures.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeDetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeDetermineCompilerABI.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeDetermineCompilerId.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeDetermineRCCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeDetermineSystem.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeFindBinUtils.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeFindDependencyMacro.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeGenericSystem.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeParseImplicitIncludeInfo.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeParseImplicitLinkInfo.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeParseLibraryArchitecture.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeRCCompiler.cmake.in \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeRCInformation.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystem.cmake.in \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeTestCCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeTestCXXCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeTestCompilerCommon.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CMakeTestRCCompiler.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckCSourceCompiles.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckCXXCompilerFlag.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckCXXSourceCompiles.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckIncludeFile.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/CheckLibraryExists.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/ADSP-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/ARMCC-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/ARMClang-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/AppleClang-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Borland-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Bruce-C-DetermineCompiler.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Clang-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Clang-DetermineCompilerInternal.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Compaq-C-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Cray-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Embarcadero-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Fujitsu-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GHS-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-C-DetermineCompiler.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-C.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-CXX.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU-FindBinUtils.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/GNU.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/HP-C-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/HP-CXX-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/IAR-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Intel-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/LCC-C-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/MSVC-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/NVHPC-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/NVIDIA-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/PGI-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/PathScale-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/SCO-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/SDCC-C-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/SunPro-C-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/TI-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Tasking-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/Watcom-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/XL-C-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/XL-CXX-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/XLClang-C-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/zOS-C-DetermineCompiler.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/FindOpenGL.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/FindPackageHandleStandardArgs.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/FindPackageMessage.cmake \
@@ -28,6 +103,8 @@ NodeEngine_autogen/timestamp: \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Internal/CheckCompilerFlag.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Internal/CheckFlagCommonConfig.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Internal/CheckSourceCompiles.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Internal/FeatureTesting.cmake \
+	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-Determine-CXX.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-C-ABI.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-C.cmake \
 	D:/CLion/CLion\ 2023.1.4/bin/cmake/win/x64/share/cmake-3.25/Modules/Platform/Windows-GNU-CXX-ABI.cmake \
@@ -505,6 +582,7 @@ NodeEngine_autogen/timestamp: \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QMargins \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QMutex \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF \
@@ -874,16 +952,20 @@ NodeEngine_autogen/timestamp: \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QApplication \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsScene \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsSceneDragDropEvent \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsView \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QHBoxLayout \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QLabel \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QLineEdit \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QMainWindow \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QMenuBar \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QMessageBox \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QPushButton \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QSizePolicy \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QStatusBar \
@@ -891,27 +973,37 @@ NodeEngine_autogen/timestamp: \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QStyleOptionGraphicsItem \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QSystemTrayIcon \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QTextEdit \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QTreeWidget \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QTreeWidgetItem \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QWidget \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qabstractbutton.h \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qabstractitemdelegate.h \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qabstractitemview.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qabstractscrollarea.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qabstractslider.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qabstractspinbox.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qapplication.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qboxlayout.h \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qdialog.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qdockwidget.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qframe.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicseffect.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicsitem.h \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicslayoutitem.h \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicsproxywidget.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicsscene.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicssceneevent.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicsview.h \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgraphicswidget.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qgridlayout.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qlabel.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qlayout.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qlayoutitem.h \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qlineedit.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qmainwindow.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qmenu.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qmenubar.h \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qmessagebox.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qpushbutton.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qrubberband.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qscrollarea.h \
@@ -924,6 +1016,9 @@ NodeEngine_autogen/timestamp: \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtabbar.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtabwidget.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtextedit.h \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtreeview.h \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtreewidget.h \
+	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtreewidgetitemiterator.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtwidgets-config.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtwidgetsexports.h \
 	D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1108,16 +1203,18 @@ NodeEngine_autogen/timestamp: \
 	D:/VSCode_codes/Qt/NodeEngine/src/NE_Title.h \
 	D:/VSCode_codes/Qt/NodeEngine/src/NE_View.cpp \
 	D:/VSCode_codes/Qt/NodeEngine/src/NE_View.h \
+	D:/VSCode_codes/Qt/NodeEngine/src/NE_Widgets.cpp \
+	D:/VSCode_codes/Qt/NodeEngine/src/NE_Widgets.h \
 	D:/VSCode_codes/Qt/NodeEngine/src/config.cpp \
 	D:/VSCode_codes/Qt/NodeEngine/src/config.h \
 	D:/VSCode_codes/Qt/NodeEngine/src/main.cpp \
-	D:/VSCode_codes/Qt/NodeEngine/src/nodes/LogicNodes/BranchNode.cpp \
-	D:/VSCode_codes/Qt/NodeEngine/src/nodes/LogicNodes/BranchNode.h \
-	D:/VSCode_codes/Qt/NodeEngine/src/nodes/LogicNodes/LogicNodesLibrary.cpp \
-	D:/VSCode_codes/Qt/NodeEngine/src/nodes/LogicNodes/LogicNodesLibrary.h \
-	D:/VSCode_codes/Qt/NodeEngine/src/nodes/MathNodes/BasicCalNode.cpp \
-	D:/VSCode_codes/Qt/NodeEngine/src/nodes/MathNodes/BasicCalNode.h \
-	D:/VSCode_codes/Qt/NodeEngine/src/nodes/NodeLibraryPluginInterface.h \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/BasicMathLibrary.cpp \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/BasicMathLibrary.h \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/LogicLibrary.cpp \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/LogicLibrary.h \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/interfaces/NodeLibraryPlugin.cpp \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/interfaces/NodeLibraryPlugin.h \
+	D:/VSCode_codes/Qt/NodeEngine/src/nodes/interfaces/NodeLibraryPluginInterface.h \
 	D:/VSCode_codes/Qt/NodeEngine/src/pch.h \
 	D:/VSCode_codes/lib/assimp/lib/cmake/assimp-5.2/assimpConfig.cmake \
 	D:/VSCode_codes/lib/assimp/lib/cmake/assimp-5.2/assimpConfigVersion.cmake \
