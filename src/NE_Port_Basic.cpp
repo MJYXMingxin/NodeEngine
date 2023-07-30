@@ -153,7 +153,7 @@ void NE_Port_Basic::remove_all_edge()
 
 void NE_Port_Basic::conditioned_remove_edge()
 {
-    if(_port_type == PORT_EXEC_IN || _port_type == PORT_PARAM_IN || _port_type == PORT_EXEC_OUT)
+    if(/*_port_type == PORT_EXEC_IN || */_port_type == PORT_PARAM_IN || _port_type == PORT_EXEC_OUT)
     {
         if(!_edges.empty())
         {

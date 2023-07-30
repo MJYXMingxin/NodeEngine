@@ -20,15 +20,15 @@ NE_View::NE_View(QWidget* parent, NE_Scene* scene)
     setMouseTracking(true);
 
     setRenderHints(QPainter::Antialiasing|
-                         QPainter::TextAntialiasing|
-                         QPainter::SmoothPixmapTransform|
-                         QPainter::LosslessImageRendering);
+                   QPainter::TextAntialiasing|
+                   QPainter::SmoothPixmapTransform|
+                   QPainter::LosslessImageRendering);
 
     setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     setCacheMode(QGraphicsView::CacheBackground);
 
-    setOptimizationFlag(QGraphicsView::DontAdjustForAntialiasing, true);
-    setOptimizationFlag(QGraphicsView::DontSavePainterState, true);
+//    setOptimizationFlag(QGraphicsView::DontAdjustForAntialiasing, true);
+//    setOptimizationFlag(QGraphicsView::DontSavePainterState, true);
 
     setDragMode(QGraphicsView::RubberBandDrag);
 
@@ -404,9 +404,9 @@ void NE_View::LoadPlugins() {
             for (auto it = libs.begin(); it != libs.end(); ++it) {
                 QStringList nodes = it.value().keys();
                 _data.insert({{it.key(), nodes}});
+                qDebug()<<"Lib :"<<it.key()<<" has been loaded";
             }
             _libs.insert(file, _data);
-            qDebug() << file << "loaded successfully";
         }
         else
             qDebug() << file << "load failed! Reason: It's not NodeEngine's Plugin";

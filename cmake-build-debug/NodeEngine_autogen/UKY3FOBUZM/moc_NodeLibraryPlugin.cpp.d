@@ -471,6 +471,7 @@ D:/VSCode_codes/Qt/NodeEngine/cmake-build-debug/NodeEngine_autogen/UKY3FOBUZM/mo
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPropertyAnimation \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QScopedPointer \

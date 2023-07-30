@@ -56,6 +56,8 @@ public:
 
     void remove_self();
 
+    static QString LoadMathSymbol(const QString& title);
+
 protected:
     QJsonObject _obj;
     Config_Node _config;
@@ -89,6 +91,8 @@ protected:
 
     int _max_param_width = 0;
     int _max_output_width = 0;
+
+    int _math_symbol_width;
 
     QVector<NE_Port_Basic*> _param_in;
     QVector<NE_Port_Basic*> _param_out;

@@ -1,3 +1,7 @@
+QWidget {
+  background-color: transparent;
+}
+
 QTreeWidget {
   background-color: #1e1e1e;
 
@@ -43,7 +47,7 @@ QTreeWidget::branch:selected {
 }
 
 QTreeView::item:selected:active {
-  background: #ababab;
+  background: #dddddd;
 }
 
 QTreeView::item:selected:!active {

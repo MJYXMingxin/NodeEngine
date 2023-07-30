@@ -61,6 +61,8 @@ void NE_Editor::setup_editor()
     statusBar()->setVisible(false);
     setMouseTracking(true);
     setStyleSheetbyQss();
+
+    setWindowOpacity(0);
 }
 
 void NE_Editor::InitTitleBar()
@@ -88,9 +90,9 @@ void NE_Editor::InitTitleBar()
                 showNormal();
                 move(_restore_pos);
                 setGeometry(QRect(_restore_pos.x(),
-                                        _restore_pos.y(),
-                                        _restore_size.width(),
-                                        _restore_size.height()));
+                                  _restore_pos.y(),
+                                  _restore_size.width(),
+                                  _restore_size.height()));
             }, Qt::DirectConnection);
 
     connect(_titlebar, &NE_Title::signalStoreScale, this, [this](){_titlebar->setStoredscale(_view->getScale());}, Qt::DirectConnection);
@@ -266,4 +268,33 @@ void NE_Editor::debugcustomNode(QPointF pos)
 //    _view->addNode(node,
 //                   static_cast<int>(pos.x()),
 //                   static_cast<int>(pos.y()));
+}
+
+void NE_Editor::showEvent(QShowEvent *event)
+{
+    Q_UNUSED(event);
+    auto *animation = new QPropertyAnimation(this, "windowOpacity");
+    animation->setDuration(1000); // 动画持续时间为1秒
+    animation->setStartValue(0.0); // 起始透明度为0
+    animation->setEndValue(1.0); // 结束透明度为1
+    animation->start(QAbstractAnimation::DeleteWhenStopped); // 开始动画并在结束后释放动画对象
+}
+
+void NE_Editor::closeEvent(QCloseEvent *event) {
+    // 创建动画对象
+    auto *animation = new QPropertyAnimation(this, "windowOpacity");
+    // 设置动画的起始值和结束值
+    animation->setStartValue(1.0);
+    animation->setEndValue(0.0);
+    // 设置动画的持续时间
+    animation->setDuration(1000); // 持续1秒
+    // 启动动画
+    animation->start();
+    // 等待动画结束
+    QEventLoop loop;
+    // 连接动画的finished信号和QEventLoop的quit槽函数
+    connect(animation, &QPropertyAnimation::finished, &loop, &QEventLoop::quit);
+    // 进入事件循环，等待动画完成
+    loop.exec();
+    QMainWindow::closeEvent(event);
 }

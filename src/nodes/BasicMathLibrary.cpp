@@ -7,11 +7,11 @@
 AddNode::AddNode()
 : NE_Node("Add",
           "Basic calculate : add",
-          {new NE_NodeInput("num1",Float,"data",true,{Float,Int}),
-           new NE_NodeInput("num2",Float,"data",true,{Float,Int})},
-          {new NE_NodeOutput("sum",Float,"data",true)},
+          {new NE_NodeInput("",Float,"data",true,{Float,Int}),
+           new NE_NodeInput("",Float,"data",true,{Float,Int})},
+          {new NE_NodeOutput("",Float,"data",true)},
           true,
-          Pure){}
+          Math){}
 
 int AddNode::run_node()
 {
@@ -31,11 +31,11 @@ int AddNode::run_node()
 SubtractNode::SubtractNode()
 : NE_Node("Subtract",
           "Basic calculate : subtract",
-          {new NE_NodeInput("num1",Float,"data",true,{Float,Int}),
-           new NE_NodeInput("num2",Float,"data",true,{Float,Int})},
-           {new NE_NodeOutput("res",Float,"data",true)},
+          {new NE_NodeInput("",Float,"data",true,{Float,Int}),
+           new NE_NodeInput("",Float,"data",true,{Float,Int})},
+           {new NE_NodeOutput("",Float,"data",true)},
            true,
-           Pure){}
+           Math){}
 
 int SubtractNode::run_node()
 {
@@ -65,11 +65,11 @@ int SubtractNode::run_node()
 MultiplyNode::MultiplyNode()
 : NE_Node("Multiply",
           "Basic calculate : multiply",
-          {new NE_NodeInput("num1",Float,"data",true,{Float,Int}),
-           new NE_NodeInput("num2",Float,"data",true,{Float,Int})},
-           {new NE_NodeOutput("res",Float,"data",true)},
+          {new NE_NodeInput("",Float,"data",true,{Float,Int}),
+           new NE_NodeInput("",Float,"data",true,{Float,Int})},
+           {new NE_NodeOutput("",Float,"data",true)},
            true,
-           Pure){}
+           Math){}
 
 int MultiplyNode::run_node() {
     float res = 1.0f;
@@ -88,11 +88,11 @@ int MultiplyNode::run_node() {
 DivideNode::DivideNode()
 : NE_Node("Divide",
           "Basic calculate : divide",
-          {new NE_NodeInput("num1",Float,"data",true,{Float,Int}),
-           new NE_NodeInput("num2",Float,"data",true,{Float,Int})},
-           {new NE_NodeOutput("res",Float,"data",true)},
+          {new NE_NodeInput("",Float,"data",true,{Float,Int}),
+           new NE_NodeInput("",Float,"data",true,{Float,Int})},
+           {new NE_NodeOutput("",Float,"data",true)},
            true,
-           Pure){}
+           Math){}
 
 int DivideNode::run_node() {
     float dividend = 0.0f;

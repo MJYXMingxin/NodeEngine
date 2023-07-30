@@ -28,11 +28,11 @@ int BranchNode::run_node()
 GreaterNode::GreaterNode()
 : NE_Node("Greater",
           "Logical judgment : greater",
-          {new NE_NodeInput("num1",Float,"data",true,{Float,Int}),
-           new NE_NodeInput("num2",Float,"data",true,{Float,Int})},
-           {new NE_NodeOutput("res",Bool,"data",true)},
+          {new NE_NodeInput("",Float,"data",true,{Float,Int}),
+           new NE_NodeInput("",Float,"data",true,{Float,Int})},
+           {new NE_NodeOutput("",Bool,"data",true)},
            true,
-           Pure){}
+           Math){}
 
 int GreaterNode::run_node() {
     float param1 = 0.0f;

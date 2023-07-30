@@ -60,6 +60,7 @@
 #include <QMessageBox>
 #include <QLineEdit>
 #include <QFrame>
+#include <QPropertyAnimation>
 //#include <QtOpenGLWidgets/QOpenGLWidget>
 #include <QDebug>
 

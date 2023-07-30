@@ -13,7 +13,7 @@ NE_Node_Basic::NE_Node_Basic(QString title,
                              _scene(scene),
                              _param_in(std::move(in)),
                              _param_out(std::move(out)),
-                               _func_type(functype),
+                             _func_type(functype),
                              _node_pos(node_pos),
                              _title_height(35),
                              _title_font_size(16),
@@ -45,7 +45,7 @@ void NE_Node_Basic::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 {
     //node
     auto node_outline = QPainterPath();
-    node_outline.addRoundedRect(0,0,
+    node_outline.addRoundedRect(0, 0,
                                 _node_width,
                                 _node_height,
                                 _node_radius,
@@ -54,27 +54,50 @@ void NE_Node_Basic::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     painter->setBrush(_brush_background);
     painter->drawPath(node_outline.simplified());
 
-    //title
-    auto title_outline = QPainterPath();
-    title_outline.setFillRule(Qt::WindingFill);
-    title_outline.addRoundedRect(0,0,
-                                 _node_width,
-                                 _title_height,
-                                 _node_radius,
-                                 _node_radius);
-    title_outline.addRect(0,_title_height-_node_radius,
-                          _node_radius,_node_radius);
-    title_outline.addRect(_node_width-_node_radius,
-                          _title_height-_node_radius,
-                          _node_radius,_node_radius);
-    painter->setPen(Qt::NoPen);
+    if (_func_type != Math) {
+        //title
+        auto title_outline = QPainterPath();
+        title_outline.setFillRule(Qt::WindingFill);
+        title_outline.addRoundedRect(0, 0,
+                                     _node_width,
+                                     _title_height,
+                                     _node_radius,
+                                     _node_radius);
+        title_outline.addRect(0, _title_height - _node_radius,
+                              _node_radius, _node_radius);
+        title_outline.addRect(_node_width - _node_radius,
+                              _title_height - _node_radius,
+                              _node_radius, _node_radius);
+        painter->setPen(Qt::NoPen);
 
-    painter->setBrush(_brush_title_back);
-    painter->drawPath(title_outline.simplified());
-
+        painter->setBrush(_brush_title_back);
+        painter->drawPath(title_outline.simplified());
+     } else {
+        auto label_len = [this]{
+            int len = 0;
+            for(auto i:LoadMathSymbol(_title))
+            {
+//            if(i.unicode() >= 0xFF01 && i.unicode() <= 0xFF5E)
+//                len += _title_font_size;
+                if(i.unicode() >= 0x0020 && i.unicode() <= 0x007E)
+                    len += static_cast<int>(36 * 1);
+                else
+                    len += 36;
+            }
+            return len;
+        };
+        auto symbol = QPen(QColor(153, 255, 34));
+        auto font = QFont("Arial", 36);
+        painter->setFont(font);
+        painter->setPen(symbol);
+        painter->drawText(QRectF(1.5 * _port_padding + 20,
+                                 static_cast<qreal>(_node_height) / 2 - 18,
+                                 label_len(), 36),
+                          Qt::AlignmentFlag::AlignCenter, LoadMathSymbol(_title));
+    }
     //outline
-    isSelected()?
-    painter->setPen(_pen_selected):painter->setPen(_pen_default);
+    isSelected() ?
+    painter->setPen(_pen_selected) : painter->setPen(_pen_default);
     painter->setBrush(Qt::NoBrush);
     painter->drawPath(node_outline);
 }
@@ -134,95 +157,164 @@ void NE_Node_Basic::add_port(NE_Port_Basic *port, int index)
 void NE_Node_Basic::add_exec_in_port(NE_Port_Basic *port, int index)
 {
     port->add_to_parent_node(this, _scene);
+    _func_type != Math ?
     port->setPos(_port_padding,
-                 _title_height + index*(_port_padding+port->PortIcoSize()));
+                 _title_height + index * (_port_padding + port->PortIcoSize())):
+    port->setPos(_port_padding,
+                 index * (_port_padding + port->PortIcoSize()));
 }
 
 void NE_Node_Basic::add_exec_out_port(NE_Port_Basic *port, int index)
 {
     port->add_to_parent_node(this,_scene);
+    _func_type != Math ?
     port->setPos(_node_width/*-_port_padding*/-port->PortWidth(),
-                 _title_height + index*(_port_padding+port->PortIcoSize()));
+                 _title_height + index*(_port_padding+port->PortIcoSize())):
+    port->setPos(_node_width/*-_port_padding*/-port->PortWidth(),
+                 index*(_port_padding+port->PortIcoSize()));
 }
 
 void NE_Node_Basic::add_param_in_port(NE_Port_Basic *port, int index)
 {
     port->add_to_parent_node(this,_scene);
+    _func_type != Math ?
     port->setPos(_port_padding,
-                 _title_height+index*(_port_padding+port->PortIcoSize()));
+                 _title_height+index*(_port_padding+port->PortIcoSize())):
+    port->setPos(_port_padding,
+                 index*(_port_padding+port->PortIcoSize()));
 }
 
 void NE_Node_Basic::add_param_out_port(NE_Port_Basic *port, int index)
 {
     port->add_to_parent_node(this,_scene);
+    _func_type != Math ?
     port->setPos(_node_width-_port_padding-port->PortWidth(),
-                 _title_height+index*(_port_padding+port->PortIcoSize()));
+                 _title_height+index*(_port_padding+port->PortIcoSize())):
+    port->setPos(_node_width-_port_padding-port->PortWidth(),
+                 index*(_port_padding+port->PortIcoSize()));
 }
 
 void NE_Node_Basic::init_width_height()
 {
-    auto cal_unicode = [this]{
-        int len = 0;
-        for(auto i:_title)
-        {
+    if (_func_type != Math) {
+        auto cal_unicode = [this] {
+            int len = 0;
+            for (auto i: _title) {
 //            if(i.unicode() >= 0xFF01 && i.unicode() <= 0xFF5E)
 //                len += _title_font_size;
-            if(i.unicode() >= 0x0020 && i.unicode() <= 0x007E)
-                len += static_cast<int>(_title_font_size*0.7);
-            else
-                len += _title_font_size;
+                if (i.unicode() >= 0x0020 && i.unicode() <= 0x007E)
+                    len += static_cast<int>(_title_font_size * 0.7);
+                else
+                    len += _title_font_size;
+            }
+            return len;
+        };
+        //init _node_height
+        int param_height, out_height;
+        if (!_param_in.empty())
+            param_height = (static_cast<int>(_param_in.size())) *
+                           (_param_in[0]->PortIcoSize() + _port_padding) +
+                           _title_height;
+        else
+            param_height = _title_height;
+
+        param_height > _node_height ?
+                param_height += 0 : param_height = _node_height_min;
+        if (_node_height < param_height)
+            _node_height = param_height;
+
+        if (!_param_out.empty())
+            out_height = (static_cast<int>(_param_out.size())) *
+                         (_param_out[0]->PortIcoSize() + _port_padding) +
+                         _title_height;
+        else
+            out_height = _title_height;
+
+        out_height > _node_height ?
+        out_height : out_height = _node_height_min;
+        if (_node_height < out_height)
+            _node_height = out_height;
+
+        //init _node_width
+        _max_param_width = 0;
+        if (!_param_in.empty()) {
+                    foreach (NE_Port_Basic *port, _param_in) {
+                    if (_max_param_width < port->PortWidth())
+                        _max_param_width = port->PortWidth();
+                }
         }
-        return len;
-    };
-    //init _node_height
-    int param_height,out_height;
-    if(!_param_in.empty())
-        param_height = (static_cast<int>(_param_in.size()))*
-                (_param_in[0]->PortIcoSize()+_port_padding)+
-                _title_height;
-    else
-        param_height = _title_height;
 
-    param_height>_node_height?
-            param_height+=0:param_height=_node_height_min;
-    if(_node_height < param_height)
-        _node_height = param_height;
-
-    if(!_param_out.empty())
-        out_height = (static_cast<int>(_param_out.size()))*
-                (_param_out[0]->PortIcoSize()+_port_padding)+
-                _title_height;
-    else
-        out_height = _title_height;
-
-    out_height>_node_height?
-    out_height:out_height=_node_height_min;
-    if(_node_height < out_height)
-        _node_height = out_height;
-
-    //init _node_width
-    _max_param_width = 0;
-    if(!_param_in.empty()){
-        foreach (NE_Port_Basic *port, _param_in) {
-            if(_max_param_width < port->PortWidth())
-                _max_param_width = port->PortWidth();
+        _max_output_width = 0;
+        if (!_param_out.empty()) {
+                    foreach (NE_Port_Basic *port, _param_out) {
+                    if (_max_output_width < port->PortWidth())
+                        _max_output_width = port->PortWidth();
+                }
         }
+
+        if (_node_width < _max_param_width + _max_output_width + _port_space)
+            _node_width = _max_param_width + _max_output_width + _port_space;
+
+        if (_node_width < cal_unicode() + 2 * 10 + 4 * _port_padding)
+            _node_width = cal_unicode() + 2 * 10 + 4 * _port_padding;
+    } else {
+        auto label_len = [this]{
+            int len = 0;
+            for(auto i:LoadMathSymbol(_title))
+            {
+//            if(i.unicode() >= 0xFF01 && i.unicode() <= 0xFF5E)
+//                len += _title_font_size;
+                if(i.unicode() >= 0x0020 && i.unicode() <= 0x007E)
+                    len += static_cast<int>(36 * 1);
+                else
+                    len += 36;
+            }
+            return len;
+        };
+        //init _node_height
+        int param_height, out_height;
+        if (!_param_in.empty())
+            param_height = (static_cast<int>(_param_in.size())) *
+                           (_param_in[0]->PortIcoSize() + _port_padding);
+
+        param_height > _node_height ?
+        param_height : param_height = _node_height_min;
+
+        if (_node_height < param_height)
+            _node_height = param_height;
+
+        if (!_param_out.empty())
+            out_height = (static_cast<int>(_param_out.size())) *
+                         (_param_out[0]->PortIcoSize() + _port_padding);
+
+        out_height > _node_height ?
+        out_height : out_height = _node_height_min;
+        if (_node_height < out_height)
+            _node_height = out_height;
+
+        //init _node_width
+        _max_param_width = 0;
+        if (!_param_in.empty()) {
+                    foreach (NE_Port_Basic *port, _param_in) {
+                    if (_max_param_width < port->PortWidth())
+                        _max_param_width = port->PortWidth();
+                }
+        }
+
+        _max_output_width = 0;
+        if (!_param_out.empty()) {
+                    foreach (NE_Port_Basic *port, _param_out) {
+                    if (_max_output_width < port->PortWidth())
+                        _max_output_width = port->PortWidth();
+                }
+        }
+
+        int labelwidth = label_len();
+        if (_node_width < _max_param_width + _max_output_width + _port_space + labelwidth)
+            _node_width = _max_param_width + _max_output_width + _port_space + labelwidth;
+        if (_node_width < label_len() + 2 * 10 + 4 * _port_padding)
+            _node_width = label_len() + 2 * 10 + 4 * _port_padding;
     }
-
-    _max_output_width = 0;
-    if(!_param_out.empty()){
-        foreach (NE_Port_Basic *port, _param_out){
-            if(_max_output_width < port->PortWidth())
-                _max_output_width = port->PortWidth();
-        }
-    }
-
-    if(_node_width < _max_param_width + _max_output_width + _port_space)
-        _node_width = _max_param_width + _max_output_width + _port_space;
-
-    if(_node_width < cal_unicode() + 2 * 10 + 4*_port_padding)
-        _node_width = cal_unicode() + 2 * 10 + 4*_port_padding;
-
     //        if(_node_width < _title.length() * _title_font_size + 2 * _port_padding)
     //            _node_width = _title.length() * _title_font_size + 2 * _port_padding;
 }
@@ -279,13 +371,15 @@ void NE_Node_Basic::loadConfig()
 
 void NE_Node_Basic::init_title()
 {
-    _title_item = new QGraphicsTextItem(this);
-    _title_item->setPlainText(_title);
-    _title_item->setFont(_title_font);
-    _title_item->setDefaultTextColor(_title_color);
+    if (_func_type != Math){
+        _title_item = new QGraphicsTextItem(this);
+        _title_item->setPlainText(_title);
+        _title_item->setFont(_title_font);
+        _title_item->setDefaultTextColor(_title_color);
 //    _title_item->setPos(_title_padding, _title_padding);
-    _title_item->setPos(static_cast<qreal>(_node_width)/2-_title_item->boundingRect().width()/2,
-                              _title_padding);
+        _title_item->setPos(static_cast<qreal>(_node_width) / 2 - _title_item->boundingRect().width() / 2,
+                            _title_padding);
+    }
 }
 
 void NE_Node_Basic::add_connected(NE_Node_Basic *node, NE_Line_Basic *edge)
@@ -337,6 +431,25 @@ QVariant NE_Node_Basic::itemChange(GraphicsItemChange change, const QVariant &va
         }
     }
     return QGraphicsItem::itemChange(change,value);
+}
+
+QString NE_Node_Basic::LoadMathSymbol(const QString& title) {
+    if (title == "Add")
+        return {"+"};
+    if (title == "Subtract")
+        return {"-"};
+    if (title == "Multiply")
+        return {"×"};
+    if (title == "Divide")
+        return {"÷"};
+    if (title == "Greater")
+        return {">"};
+    if (title == "Sine")
+        return {"SIN"};
+    if (title == "Cosine")
+        return {"COS"};
+    else
+        return {};
 }
 
 NE_Node::NE_Node(QString title,

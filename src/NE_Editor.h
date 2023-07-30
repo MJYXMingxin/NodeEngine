@@ -26,7 +26,6 @@ public:
 //    void getConfig();
     QPointF map_mouse_to_scene();
 
-
     [[maybe_unused]] NE_View *getView();
 
     void debugcustomNode(QPointF pos);
@@ -54,5 +53,7 @@ private slots:
 protected:
     bool event(QEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
+    void showEvent(QShowEvent *event) override;
+    void closeEvent(QCloseEvent *event) override;
 };
 #endif // NE_EDITOR_H

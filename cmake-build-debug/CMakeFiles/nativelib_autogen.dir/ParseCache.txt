@@ -474,6 +474,7 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_View.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPropertyAnimation
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QScopedPointer
@@ -1398,6 +1399,7 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Node_Basic.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPropertyAnimation
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QScopedPointer
@@ -2322,6 +2324,7 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Editor.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPropertyAnimation
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QScopedPointer
@@ -3246,6 +3249,7 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Line_Basic.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPropertyAnimation
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QScopedPointer
@@ -4170,6 +4174,7 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Port_Basic.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPropertyAnimation
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QScopedPointer
@@ -5095,6 +5100,7 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Scene.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPropertyAnimation
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QScopedPointer
@@ -6020,6 +6026,7 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Title.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPropertyAnimation
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QScopedPointer
@@ -6944,6 +6951,7 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Widgets.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPropertyAnimation
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QScopedPointer
@@ -7869,6 +7877,7 @@ D:/VSCode_codes/Qt/NodeEngine/src/nodes/BasicMathLibrary.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPropertyAnimation
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QScopedPointer
@@ -8793,6 +8802,7 @@ D:/VSCode_codes/Qt/NodeEngine/src/nodes/LogicLibrary.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPropertyAnimation
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QScopedPointer
@@ -9718,6 +9728,7 @@ D:/VSCode_codes/Qt/NodeEngine/src/nodes/interfaces/NodeLibraryPlugin.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QObject
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPluginLoader
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPointF
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QPropertyAnimation
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QRectF
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtCore/QScopedPointer

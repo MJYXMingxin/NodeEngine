@@ -87,7 +87,8 @@ enum FunctionType
 {
     Pure,
     Normal,
-    Inline
+    Inline,
+    Math
 };
 
 typedef struct RGBColor{

@@ -196,6 +196,8 @@ void NE_Title::init_control()
     connect(_restore, &QPushButton::clicked, this,[this](){onButtonRestoreClicked();}, Qt::DirectConnection);
     connect(_close, &QPushButton::clicked, this, [this](){emit signalButtonCloseClicked();}, Qt::DirectConnection);
 
+    connect(_exitAction, &QAction::triggered, this, [this](){emit signalButtonCloseClicked();}, Qt::DirectConnection);
+
     connect(_storescale, &QAction::triggered, this, [this](){emit signalStoreScale();}, Qt::DirectConnection);
     connect(_resetscale, &QAction::triggered, this, [this](){emit signalResetScale();}, Qt::DirectConnection);
     connect(_view_25, &QAction::triggered, this, [this](){emit signal25Scale();}, Qt::DirectConnection);
