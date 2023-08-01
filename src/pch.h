@@ -61,6 +61,9 @@
 #include <QLineEdit>
 #include <QFrame>
 #include <QPropertyAnimation>
+#include <QGraphicsEllipseItem>
+#include <QGraphicsBlurEffect>
+
 //#include <QtOpenGLWidgets/QOpenGLWidget>
 #include <QDebug>
 

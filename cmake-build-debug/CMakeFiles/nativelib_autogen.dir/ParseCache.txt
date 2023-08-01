@@ -844,7 +844,9 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_View.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsBlurEffect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget
@@ -1769,7 +1771,9 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Node_Basic.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsBlurEffect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget
@@ -2694,7 +2698,9 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Editor.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsBlurEffect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget
@@ -3619,7 +3625,9 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Line_Basic.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsBlurEffect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget
@@ -4544,7 +4552,9 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Port_Basic.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsBlurEffect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget
@@ -5470,7 +5480,9 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Scene.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsBlurEffect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget
@@ -6396,7 +6408,9 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Title.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsBlurEffect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget
@@ -7321,7 +7335,9 @@ D:/VSCode_codes/Qt/NodeEngine/src/NE_Widgets.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsBlurEffect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget
@@ -8247,7 +8263,9 @@ D:/VSCode_codes/Qt/NodeEngine/src/nodes/BasicMathLibrary.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsBlurEffect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget
@@ -9172,7 +9190,9 @@ D:/VSCode_codes/Qt/NodeEngine/src/nodes/LogicLibrary.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsBlurEffect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget
@@ -10098,7 +10118,9 @@ D:/VSCode_codes/Qt/NodeEngine/src/nodes/interfaces/NodeLibraryPlugin.h
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsBlurEffect
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect
+ mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsEllipseItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem
  mdp:D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget

@@ -954,7 +954,9 @@ NodeEngine_autogen/timestamp: \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QBoxLayout \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QDockWidget \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QFrame \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsBlurEffect \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsDropShadowEffect \
+  D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsEllipseItem \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsItem \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsPathItem \
   D:/Qt/Qt/6.4.3/mingw_64/include/QtWidgets/QGraphicsProxyWidget \

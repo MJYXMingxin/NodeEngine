@@ -16,9 +16,10 @@ class NE_View : public QGraphicsView
 Q_OBJECT
 public:
     explicit NE_View(QWidget *parent = nullptr, NE_Scene *scene = nullptr);
-    ~NE_View();
+    ~NE_View() override;
     void getConfig();
     void setScale(double scale);
+//    void initFollower();
     [[nodiscard]] double getScale() const;
     void LeftButtonPressed(QMouseEvent *event);
     void LeftButtonReleased(QMouseEvent *event);
@@ -51,6 +52,8 @@ private slots:
     void onItemDoubleClicked(QTreeWidgetItem* item, int column);
 
 protected:
+//    QGraphicsEllipseItem *_follower;
+
     NE_Scene *_scene;
     QJsonObject _obj;
     Config_View _config;

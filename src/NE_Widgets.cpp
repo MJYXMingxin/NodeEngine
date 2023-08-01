@@ -64,6 +64,7 @@ NE_NodeList::NE_NodeList(QMap<QString, QStringList> data, QWidget *parent)
             resetTree(item);
             searchTree(item, wildcard);
         }
+        tree->clearSelection();
     });
 }
 

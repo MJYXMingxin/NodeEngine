@@ -3,6 +3,7 @@
 
 NE_View::NE_View(QWidget* parent, NE_Scene* scene)
         :QGraphicsView{parent},
+//        _follower(new QGraphicsEllipseItem(-20,-20,40,40)),
         _config(),
         _zoom_clamp(1.1),
         _scene(scene),
@@ -53,6 +54,8 @@ NE_View::NE_View(QWidget* parent, NE_Scene* scene)
 
     LoadPlugins();
     setup_node_list_widget();
+//    initFollower();
+//    qDebug() << _follower->pos();
 }
 NE_View::~NE_View()
 {
@@ -284,6 +287,7 @@ void NE_View::mouseReleaseEvent(QMouseEvent *event)
 
 void NE_View::mouseMoveEvent(QMouseEvent *event)
 {
+//    _follower->setPos(mapToScene(event->pos()));
     if(_drag_edge_mode)
     {
         _drag_edge->update_position(mapToScene(event->pos()));
@@ -447,6 +451,7 @@ void NE_View::onItemDoubleClicked(QTreeWidgetItem *item, int column)
         createNode(item->data(0, Qt::UserRole).value<QMap<QString,QString>>().keys().first(),
                    item->data(0, Qt::UserRole).value<QMap<QString,QString>>().values().first());
     }
+    _nodelist->tree->clearSelection();
 }
 
 void NE_View::createNode(const QString& lib, const QString& name)
@@ -472,7 +477,39 @@ void NE_View::createNode(const QString& lib, const QString& name)
         }
     }
 }
+/*
+void NE_View::initFollower() {
+    _follower->setBrush(Qt::NoBrush);
+    _follower->setPen(QPen(Qt::white, 3));
+    _follower->setOpacity(1);
+    _follower->setFlag(QGraphicsItem::ItemIsSelectable, false);
+    _follower->setFlag(QGraphicsItem::ItemIsFocusable, false);
+    _follower->setFlag(QGraphicsItem::ItemIgnoresTransformations);
 
+
+//    auto* effect = new QGraphicsDropShadowEffect;
+//    effect->setColor(Qt::white);
+//    effect->setBlurRadius(15);
+//    _follower->setGraphicsEffect(effect);
+
+//    auto* blurEffect = new QGraphicsBlurEffect;
+//    blurEffect->setBlurRadius(5);
+//    _follower->setGraphicsEffect(blurEffect);
+    _scene->addItem(_follower);
+    _follower->setZValue(std::numeric_limits<qreal>::max() - 1);
+
+//    QTimer::singleShot(200, [this]() {
+//        auto* opacityEffect = new QGraphicsOpacityEffect;
+//        _follower->setGraphicsEffect(opacityEffect);
+//        auto* animation = new QPropertyAnimation(opacityEffect, "opacity");
+//        animation->setDuration(500);
+//        animation->setStartValue(0.5);
+//        animation->setEndValue(0);
+//        animation->setEasingCurve(QEasingCurve::OutQuad);
+//        animation->start(QAbstractAnimation::DeleteWhenStopped);
+//    });
+}
+*/
 template <typename T>
 T NE_View::clamp(T value, T min, T max)
 {
